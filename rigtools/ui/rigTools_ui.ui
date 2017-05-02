@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mainWindow</class>
+ <widget class="QMainWindow" name="mainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>900</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>500</width>
+    <height>900</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>500</width>
+    <height>900</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>RigTools MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="sanity_check_btn">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>75</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>75</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>75</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>sanity_check</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="joint_groupBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>460</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="title">
+     <string>Joint</string>
+    </property>
+    <widget class="QPushButton" name="parent_btn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>56</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>parent</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="aimCons_groupBox">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>20</y>
+       <width>361</width>
+       <height>141</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Aim Constraint And Orient two Joints and Hirarchy</string>
+     </property>
+     <widget class="QPushButton" name="aim_constraint_btn">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>76</y>
+        <width>101</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>aim_constraint</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="aim_constraint_parent_btn">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>76</y>
+        <width>121</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>aim_constraint_parent</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="orient_chain_btn">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>76</y>
+        <width>101</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>orient_chain</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>15</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>aim axis</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>15</y>
+        <width>81</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>object up axis</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line">
+      <property name="geometry">
+       <rect>
+        <x>165</x>
+        <y>35</y>
+        <width>20</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="none_Orient_btn">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>110</y>
+        <width>101</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>none_Orient</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>95</y>
+        <width>341</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frame">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QRadioButton" name="aimX_rb">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>13</y>
+         <width>31</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>X</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="aimY_rb">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>13</y>
+         <width>31</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Y</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="aimZ_rb">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>13</y>
+         <width>31</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Z</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_2">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>30</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QRadioButton" name="aimObX_rb">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>13</y>
+         <width>31</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>X</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="aimObY_rb">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>13</y>
+         <width>31</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Y</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="aimObZ_rb">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>13</y>
+         <width>31</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Z</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="multipleCons_groupBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>170</y>
+       <width>441</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Constraint Multiple Object</string>
+     </property>
+     <widget class="QPushButton" name="point_constraint_btn">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>20</y>
+        <width>100</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>point_constraint</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="orient_constraint_btn">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>20</y>
+        <width>100</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>orient_constraint</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="parent_constraint_btn">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>20</y>
+        <width>100</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>parent_constraint</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="maintainOffset_cb">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>25</y>
+        <width>101</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Maintain Offset</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="Zero_Out_btn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>86</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Zero_Out</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="jointSel_btn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>26</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>joint@sel</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Select_All_btn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>115</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Select_All</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="Find_Duplicates_btn">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>20</y>
+      <width>100</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>74</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>100</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>Find_Duplicates</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="controller_groupBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>310</y>
+      <width>461</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Controller</string>
+    </property>
+    <widget class="QPushButton" name="FK_btn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>FK</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="FK_Proxy_btn">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>70</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>FK_Proxy</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>31</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>axis</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="negTrans_cb">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>40</y>
+       <width>70</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Neg Trans</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="ctlAxis_X_rb">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>31</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>X</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="ctlAxis_Y_rb">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>40</y>
+       <width>31</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Y</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="ctlAxis_Z_rb">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>40</y>
+       <width>31</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Z</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="skin_groupBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>440</y>
+      <width>461</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Skin</string>
+    </property>
+    <widget class="QPushButton" name="select_Influence_object_btn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>131</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>select_Influence_object</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="copySkinOnMultipleObject_btn">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>20</y>
+       <width>141</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Copy Skin UI</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ShiftShapeConnections_btn">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>20</y>
+       <width>131</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Shift Shape Connections</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="Renamer_btn">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>20</y>
+      <width>100</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>74</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>100</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>Renamer</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="advanceSkeleton_groupBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>540</y>
+      <width>461</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Advance Skeleton Scripts</string>
+    </property>
+    <widget class="QPushButton" name="IK_Orient_btn">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>IK_Orient</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="FingerSDK_btn">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>30</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>FingerSDK</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="FK_in_IKSpine_btn">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>30</y>
+       <width>81</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>FK_in_IKSpine</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="Follow_groupBox">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>421</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Follow</string>
+     </property>
+     <widget class="QPushButton" name="IKArm_btn">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>IKArm</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="PoleArm_btn">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>20</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PoleArm</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="Hide_Extra_Joints_btn">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>30</y>
+       <width>101</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Hide_Extra_Joints</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="otherScript_groupBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>699</y>
+      <width>461</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Other Script</string>
+    </property>
+    <widget class="QPushButton" name="WireTool_btn">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>WireTool</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>500</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMenu">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <addaction name="actionFile"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuMenu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionFile">
+   <property name="text">
+    <string>File</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
