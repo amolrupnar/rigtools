@@ -50,6 +50,15 @@ def addStretchRig(start_ctl, end_ctl, name, ctl_side, main_ctl):
     # add skinning joints.
     pm.select(cl=True)
     skinning_joint_start = pm.joint(n=name + '_StartSkinJoint' + ctl_side)
-    skinning_end_start = pm.joint(n=name + '_StartSkinJoint' + ctl_side)
+    pm.select(cl=True)
+    skinning_joint_end = pm.joint(n=name + '_EndSkinJoint' + ctl_side)
     pm.delete(pm.parentConstraint(start_ctl, skinning_joint_start))
-    pm.delete(pm.parentConstraint(end_ctl, skinning_end_start))
+    pm.delete(pm.parentConstraint(end_ctl, skinning_joint_end))
+    # parent skin joints.
+    pm.parent(skinning_joint_start, st_axel_jt)
+    pm.parent(skinning_joint_end, end_axel_jt)
+    # aim constraint skin joints.
+    pm.aimConstraint(end_ctl, skinning_joint_start, o=[0, 0, 0], w=True, aim=[1, 0, 0], u=[0, 1, 0], wut="vector",
+                     wu=[0, 1, 0], mo=False)
+    pm.aimConstraint(start_ctl, skinning_joint_end, o=[0, 0, 0], w=True, aim=[1, 0, 0], u=[0, 1, 0], wut="vector",
+                     wu=[0, 1, 0], mo=False)
