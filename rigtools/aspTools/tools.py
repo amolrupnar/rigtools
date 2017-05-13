@@ -116,3 +116,43 @@ def fkCtlInIkSpine(startCtl, endCtl, hipCtlGrps, ctlName='Fk_Spine', ctlNum=4):
 
     pm.parentConstraint('HipSwinger_M', 'IKOffset' + startCtl[2:], mo=True)
     pm.delete(loc)
+
+
+def ikFootRollReOrientNew(ctl, ctlOffGrp, orientSample, rotateAxis='.rz', reverseConnections=False):
+    ctl = pm.PyNode(ctl)
+    ctlOffGrp = pm.PyNode(ctlOffGrp)
+    orientSample = pm.PyNode(orientSample)
+    # offsetGroup changes.
+    pm.select(cl=True)
+    jt = pm.joint(n=ctlOffGrp[:-2] + 'Extra' + ctlOffGrp[-2:])
+    pm.select(cl=True)
+    jtTemp = pm.joint(n=ctlOffGrp + 'ConnTemp')
+    pm.delete(pm.parentConstraint(orientSample, jt))
+    parentGrp = ctlOffGrp.getParent()
+    pm.parent(jt, parentGrp)
+    pm.makeIdentity(jt, apply=True, t=1, r=1, s=1, n=0, pn=1)
+    # query connection.
+    connections = pm.connectionInfo(ctlOffGrp.rx, sfd=True)
+    # attach connection.
+    pm.connectAttr(connections, jtTemp + rotateAxis)
+    pm.disconnectAttr(connections, ctlOffGrp.rx)
+    # parent.
+    children = ctlOffGrp.getChildren()
+    pm.parent(children, jt)
+    jtNewName = str(ctlOffGrp)
+    pm.delete(ctlOffGrp)
+    jt.rename(jtNewName)
+    if reverseConnections:
+        mdn = pm.createNode('multiplyDivide', n='multiplyDivideReverse' + jt)
+        mdn.input2X.set(-1)
+        pm.connectAttr(connections, mdn.input1X)
+        mdn.outputX.connect(jt + rotateAxis)
+        connName = pm.PyNode(connections.split('.')[0])
+        if type(connName) == pm.nodetypes.UnitConversion:
+            connName.conversionFactor.set(1)
+    else:
+        pm.connectAttr(connections, jt + rotateAxis)
+    # delete tempJoint.
+    pm.delete(jtTemp)
+    # rotate controller group.
+    children = ctl.getChildren()
