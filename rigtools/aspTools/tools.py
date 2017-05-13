@@ -118,7 +118,7 @@ def fkCtlInIkSpine(startCtl, endCtl, hipCtlGrps, ctlName='Fk_Spine', ctlNum=4):
     pm.delete(loc)
 
 
-def ikFootRollReOrientNew(ctl, ctlOffGrp, orientSample, rotateAxis='.rz', reverseConnections=False):
+def ikFootRollReOrient(ctl, ctlOffGrp, orientSample, rotateAxis='.rz', reverseConnections=False):
     ctl = pm.PyNode(ctl)
     ctlOffGrp = pm.PyNode(ctlOffGrp)
     orientSample = pm.PyNode(orientSample)
@@ -156,3 +156,59 @@ def ikFootRollReOrientNew(ctl, ctlOffGrp, orientSample, rotateAxis='.rz', revers
     pm.delete(jtTemp)
     # rotate controller group.
     children = ctl.getChildren()
+    filtChildren = []
+    for each in children:
+        print each
+        if type(each) == pm.nodetypes.NurbsCurve:
+            pass
+        elif each.rx.isConnected() or each.ry.isConnected() or each.rz.isConnected():
+            pm.select(cl=True)
+            newGroup = pm.createNode('transform', n=each + '_Freezed', ss=True)
+            pm.delete(pm.parentConstraint(each, newGroup))
+            pm.parent(newGroup, ctl)
+            pm.parent(each, newGroup)
+            filtChildren.append(newGroup)
+        else:
+            filtChildren.append(each)
+    pm.parent(filtChildren, w=True)
+    offChild = jt.getChildren()
+    for each in offChild:
+        each.r.set([0, 0, 0])
+    pm.parent(filtChildren, ctl)
+
+
+def ikFootLiftToeReOrient(ctlOffGrp, orientSample, rotateAxis='.rz', reverseConnections=False):
+    ctlOffGrp = pm.PyNode(ctlOffGrp)
+    orientSample = pm.PyNode(orientSample)
+    # offsetGroup changes.
+    pm.select(cl=True)
+    jt = pm.joint(n=ctlOffGrp[:-2] + 'Extra' + ctlOffGrp[-2:])
+    pm.select(cl=True)
+    jtTemp = pm.joint(n=ctlOffGrp + 'ConnTemp')
+    pm.delete(pm.parentConstraint(orientSample, jt))
+    parentGrp = ctlOffGrp.getParent()
+    pm.parent(jt, parentGrp)
+    pm.makeIdentity(jt, apply=True, t=1, r=1, s=1, n=0, pn=1)
+    # query connection.
+    connections = pm.connectionInfo(ctlOffGrp.rx, sfd=True)
+    # attach connection.
+    pm.connectAttr(connections, jtTemp + rotateAxis)
+    pm.disconnectAttr(connections, ctlOffGrp.rx)
+    # parent.
+    childrens = ctlOffGrp.getChildren()
+    pm.parent(childrens, jt)
+    jtNewName = str(ctlOffGrp)
+    pm.delete(ctlOffGrp)
+    jt.rename(jtNewName)
+    if reverseConnections:
+        mdn = pm.createNode('multiplyDivide', n='multiplyDivideReverse' + jt)
+        mdn.input2X.set(-1)
+        pm.connectAttr(connections, mdn.input1X)
+        mdn.outputX.connect(jt + rotateAxis)
+        connName = pm.PyNode(connections.split('.')[0])
+        if type(connName) == pm.nodetypes.UnitConversion:
+            connName.conversionFactor.set(1)
+    else:
+        pm.connectAttr(connections, jt + rotateAxis)
+    # delete tempJoint.
+    pm.delete(jtTemp)
