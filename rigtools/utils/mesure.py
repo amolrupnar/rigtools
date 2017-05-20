@@ -30,3 +30,8 @@ def getLength(valX, valY, valZ):
     """
     distance = om.MVector(valX, valY, valZ)
     return distance.length()
+
+
+def getDistanceBetweenTwoObjects(obj1, obj2):
+    valX, valY, valZ = distanceCompareBetweenTwoObjects(obj1, obj2)
+    return getLength(valX, valY, valZ)

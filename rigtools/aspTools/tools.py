@@ -119,6 +119,15 @@ def fkCtlInIkSpine(startCtl, endCtl, hipCtlGrps, ctlName='Fk_Spine', ctlNum=4):
 
 
 def ikFootRollReOrient(ctl, ctlOffGrp, orientSample, rotateAxis='.rz', reverseConnections=False):
+    """
+    reorient ik roll controllers using re parenting.
+    :param ctl: string
+    :param ctlOffGrp: string
+    :param orientSample: string
+    :param rotateAxis: string (like'.rz')
+    :param reverseConnections: bool
+    :return: orientation.
+    """
     ctl = pm.PyNode(ctl)
     ctlOffGrp = pm.PyNode(ctlOffGrp)
     orientSample = pm.PyNode(orientSample)
@@ -178,6 +187,14 @@ def ikFootRollReOrient(ctl, ctlOffGrp, orientSample, rotateAxis='.rz', reverseCo
 
 
 def ikFootLiftToeReOrient(ctlOffGrp, orientSample, rotateAxis='.rz', reverseConnections=False):
+    """
+    re orient ikLiftToe controllers.
+    :param ctlOffGrp: string
+    :param orientSample: string
+    :param rotateAxis: string
+    :param reverseConnections: bool
+    :return: orientation.
+    """
     ctlOffGrp = pm.PyNode(ctlOffGrp)
     orientSample = pm.PyNode(orientSample)
     # offsetGroup changes.

@@ -1,5 +1,6 @@
 import pymel.core as pm
 import maya.cmds as cmds
+from rigtools.utils import mesure
 
 
 def getInfluenceJoint(sel=None):
@@ -73,3 +74,43 @@ def shiftInputOutputConnections(sourceInp, sourceOut, destInp, destOut):
     # input connection.
     inpConn = pm.connectionInfo(sourceInp + '.inMesh', sfd=True)
     pm.connectAttr(inpConn, destInp + '.inMesh', f=True)
+
+
+def addSkinProxyCylinder(startJoint, endJoint):
+    """
+    add proxy geometries for skin according to start and end joint.
+    :param startJoint: string
+    :param endJoint: string
+    :return: pCylinder, grp
+    """
+    startJoint = pm.PyNode(startJoint)
+    endJoint = pm.PyNode(endJoint)
+    pm.select(cl=True)
+    # basic queries.
+    totHeight = mesure.getDistanceBetweenTwoObjects(startJoint, endJoint)
+    chain = []
+    testJoint = startJoint
+    chain.append(startJoint)
+    breakJoint = ''
+    while not breakJoint:
+        child = pm.listRelatives(testJoint, c=True, typ='joint')[0]
+        if str(child) == str(endJoint):
+            chain.append(child)
+            break
+        chain.append(child)
+        testJoint = child
+    subHeight = len(chain) - 1
+    pCylinder = pm.modeling.polyCylinder(h=totHeight, sc=0, sh=subHeight, ch=False, n=startJoint + '_SkinProxyGeo')
+    grp = pm.createNode('transform', n=pCylinder[0] + '_grp')
+    pm.parent(pCylinder, grp)
+    pm.delete(pm.pointConstraint(startJoint, endJoint, grp, mo=False))
+    pm.delete(pm.orientConstraint(startJoint, grp, mo=False))
+    pCylinder[0].rz.set(90)
+    pCylinder[0].t.lock()
+    pCylinder[0].r.lock()
+    pCylinder[0].s.lock()
+    faceCount = pm.modeling.polyEvaluate(pCylinder[0], f=True)
+    pm.delete(pCylinder[0].f[faceCount - 1])
+    pm.delete(pCylinder[0].f[faceCount - 2])
+    # TODO: get shape in geometry mode
+    return pCylinder, grp
