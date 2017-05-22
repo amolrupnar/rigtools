@@ -1,6 +1,10 @@
 import pymel.core as pm
 import maya.mel as mel
 
+from rigtools.utils import blendshapeUtils
+
+reload(blendshapeUtils)
+
 
 class LipSetup(object):
     def __init__(self, face_geo, face_geo_top_node, namespaceName='XXX'):
@@ -132,8 +136,6 @@ class LipSetup(object):
                 pm.connectAttr('Main.s', 'Brs.s', f=True)
             else:
                 pm.connectAttr('Main_CTRL.s', 'Brs.s', f=True)
-            for each in self.controllers:
-                pm.rename(each, each + '_CTRL')
             pm.setAttr('FaceDeformationSystem.v', 0)
             pm.setAttr('FaceDeformationSystem.v', l=True)
             return True
@@ -147,14 +149,14 @@ class LipSetup(object):
                 pm.namespace(rm=each[1:], mnr=True)
 
 
-def browExport():
-    face_geo = pm.PyNode('Body')
+def browExport(face_geo):
+    face_geo = pm.PyNode(face_geo)
     # arrays
     ctlOffsetGroups = ['browInnerAttach_R', 'browOuterAttach_R', 'browInnerAttach_L', 'browOuterAttach_L',
                        'browHalfAttach_R', 'browHalfAttach_L']
     browCurves = ['browInnerCurve_R', 'browHalfCurve_R', 'browOuterCurve_R', 'browInnerCurve_L',
                   'browHalfCurve_L', 'browOuterCurve_L']
-    deleteArray = []
+    deleteArray = ['FaceGroup', 'FaceUpper_M', 'FaceLower_M', 'FaceAllSet', 'FaceControlSet']
 
     # delete blendshape node.
     blendshapeNode = []
@@ -169,8 +171,47 @@ def browExport():
 
     # unparent offset groups
     pm.parent(ctlOffsetGroups, w=True)
-    ctlMainGroup = pm.createNode('transform', n='ctlMainOffsetGroup')
+    brow_Controllers = pm.createNode('transform', n='Brow_Controllers')
     ctlCurveMainGroup = pm.createNode('transform', n='ctlCurveMainGroup')
-    pm.parent(ctlOffsetGroups, ctlMainGroup)
+    pm.parent(ctlOffsetGroups, brow_Controllers)
     pm.parent(browCurves, ctlCurveMainGroup)
     pm.parent('Brs', 'FaceDeformationFollowHead', w=True)
+    # delete extra nodes.
+    pm.delete(deleteArray)
+
+
+def browImport(headJoint, geo, geo_main, namespaces='XXX:'):
+    # import eyebrow setup.
+    ctlOffsetGroups = ['browInnerAttach_R', 'browOuterAttach_R', 'browInnerAttach_L', 'browOuterAttach_L',
+                       'browHalfAttach_R', 'browHalfAttach_L']
+    # for import
+    pm.parent(namespaces + 'Brow_Controllers', 'ControlsSetup')
+    # parent Rivet Curves.
+    crvs = pm.listRelatives(namespaces + 'ctlCurveMainGroup', c=True)
+    pm.parent(crvs, 'ClusterSetup')
+    # connection with old Brs.
+    for each in ctlOffsetGroups:
+        pm.connectAttr('Brs.r', namespaces + each + '.r', f=True)
+        pm.connectAttr('Brs.s', namespaces + each + '.s', f=True)
+    # parent face motion follow head.
+    childs = pm.listRelatives(namespaces + 'FaceDeformationFollowHead', c=True)
+    filtChilds = []
+    for each in childs:
+        if type(each) == pm.nodetypes.PointConstraint:
+            pass
+        elif type(each) == pm.nodetypes.OrientConstraint:
+            pass
+        else:
+            filtChilds.append(each)
+    pm.parent(filtChilds, 'FaceDeformationFollowHead')
+    # face deformation follow head connections.
+    pm.connectAttr('MainAndHeadScaleMultiplyDivide.output', 'FaceDeformationFollowHead.s', f=True)
+    pm.parentConstraint(headJoint, 'FaceDeformationFollowHead', mo=True)
+    # delete unwanted.
+    deleteArray = ['Main', 'ctlCurveMainGroup', 'Brs', 'FaceDeformationFollowHead']
+    for each in deleteArray:
+        pm.delete(namespaces + each)
+    # make hierarchy.
+    eyeBrowExtraSystem = pm.createNode('transform', n='EyeBrowExtraSystem')
+    pm.parent(namespaces + geo, namespaces + 'Head_M', eyeBrowExtraSystem)
+    blendshapeUtils.addBlendShape(namespaces + geo, geo_main)
