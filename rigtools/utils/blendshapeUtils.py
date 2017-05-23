@@ -2,6 +2,14 @@ import pymel.core as pm
 
 
 def addBlendShape(source, target):
+    """
+    add blendshape in target
+    if blendshape is already exist in source it add in that,
+    otherwise create a new blendshape.
+    :param source: string (transform)
+    :param target: string (transform)
+    :return: blendshape
+    """
     source = pm.PyNode(source)
     target = pm.PyNode(target)
     # get existing blendshape if exist.
@@ -20,6 +28,6 @@ def addBlendShape(source, target):
         face_blend = blendshapes[0]
         weightCount = face_blend.getWeightCount()
         pm.blendShape(face_blend, edit=True, t=(target, weightCount + 1, source, 1.0))
-        # face_blend.setAttr(source, 1)
+        face_blend.setWeight(weightCount + 1, 1)
     else:
         pm.warning('geometry have more than one blenshapes found...')
