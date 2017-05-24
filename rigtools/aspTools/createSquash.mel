@@ -1,0 +1,37 @@
+//top level nodes
+string $headJoint= "Head_M";
+
+createNode -n FaceMotionSystem -p FaceGroup transform;
+createNode -n FaceMotionFollowHead -p FaceMotionSystem transform;
+createNode -n ControlsSetup -p FaceMotionSystem transform;
+createNode -n Acontrols transform;
+createNode -n Bcontrols transform;
+createNode -n Ccontrols transform;
+createNode -n Aimcontrols transform;
+parent Acontrols Bcontrols Ccontrols Aimcontrols ControlsSetup;
+createNode -n FaceDeformationSystem -p FaceGroup transform;
+createNode -n RegionDeformations -p FaceDeformationSystem transform;
+createNode -n FaceDeformationFollowHead -p FaceDeformationSystem transform;
+
+createNode -n MainAndHeadScaleMultiplyDivide multiplyDivide;
+connectAttr ($headJoint+".scale") MainAndHeadScaleMultiplyDivide.input1;
+connectAttr Main.scale MainAndHeadScaleMultiplyDivide.input2;
+
+parentConstraint $headJoint FaceMotionFollowHead;
+
+//faceBuildPose
+if (!`objExists faceBuildPose`)
+	{
+	createNode -n faceBuildPose dagPose;
+	addAttr -ln udAttr -dt "string"  faceBuildPose;
+	}
+
+string $ctrlBox[] = `circle -c 0 0 0 -nr 1 0 0
+-sw 360 -r 1 -d 3 -ut 0 -tol 0.01 -s 8 -ch 0 -n ("ctrlBox")`;
+
+addAttr -k 1 -ln "SquashCtrlVis" -at bool -dv true ctrlBox;
+
+
+sets -name "FaceControlSet";
+sets -name "FaceAllSet";
+
