@@ -1,5 +1,7 @@
 import pymel.core as pm
 import maya.mel as mel
+import os
+import tempfile
 
 from rigtools.utils import blendshapeUtils
 from rigtools.utils import namespaces
@@ -58,15 +60,21 @@ def _hierarchyChecker(namespaceName):
 
 
 class LipSetup(object):
-    def __init__(self, face_geo, face_geo_top_node, namespaceName='XXX:'):
+    def __init__(self, face_geo=None, face_geo_top_node=None, namespaceName='XXX:', exportFile=False, path=None):
         """
         export and import only Lip rig part from asp face rig.
         :param face_geo: string (face geometry)
         :param face_geo_top_node: string (top group of your face geometry.)
         :param namespaceName: string (namespace like 'XYZ')
         """
-        self.face_geo = pm.PyNode(face_geo)
-        self.face_geo_top_node = face_geo_top_node
+        if not face_geo:
+            self.face_geo = None
+        else:
+            self.face_geo = pm.PyNode(face_geo)
+        if not face_geo_top_node:
+            self.face_geo_top_node = None
+        else:
+            self.face_geo_top_node = face_geo_top_node
         self.namespaceName = namespaceName
         self.lipCtrlGrps = ['upperLip3Attach_L', 'upperLip3Attach_R', 'lowerLip3Attach_L', 'lowerLip3Attach_R',
                             'upperLip5Attach_R', 'lowerLip5Attach_R', 'upperLip5Attach_L', 'lowerLip5Attach_L',
@@ -74,6 +82,14 @@ class LipSetup(object):
         self.deleteObjArray = ['FaceGroup', 'Head_M', 'Main', 'faceLid', 'Jaw_M', 'FaceUpperRegion_M',
                                'FaceLowerRegion_M']
         self.lip_geos = ['LipRegion', 'LipsRegion']
+        self.exportFile = exportFile
+        if not path:
+            tempDir = tempfile.gettempdir()
+            self.path = tempDir + '\\TempLipSetup.ma'
+        else:
+            if not os.path.isdir(os.path.dirname(path)):
+                os.makedirs(os.path.dirname(path))
+            self.path = path
 
     def exportLipSetup(self):
         # create groups.
@@ -115,8 +131,10 @@ class LipSetup(object):
         pm.parent('LipRegion', 'LipsRegion', regionDeformation)
         clusterSetup.rename('ClusterSetup')
         mel.eval("MLdeleteUnused")
+        if self.exportFile:
+            pm.system.exportAll(self.path, force=True, type="mayaAscii", pr=True)
 
-    def importLipSetup(self):
+    def connectLipSetup(self):
         if not _hierarchyChecker(self.namespaceName):
             pm.windows.confirmDialog(title='Hierarchy Error',
                                      message='Hierarchy has some error please\nplease opens script editor for details.',
@@ -134,12 +152,22 @@ class LipSetup(object):
             blendshapeUtils.addBlendShape(each, self.face_geo)
 
 
-def browExport(face_geo):
+def browExport(face_geo, exportFile=False, path=None):
     """
     export brow rig from asp face rig.
     :param face_geo: string
+    :param exportFile: bool
+    :param path: string (maya file path)
     :return: browSetup
     """
+    # path queries.
+    if not path:
+        tempDir = tempfile.gettempdir()
+        path = tempDir + '/tempLipSetup.ma'
+    else:
+        if not os.path.isdir(os.path.dirname(path)):
+            os.makedirs(os.path.dirname(path))
+    # convert into pyobject.
     face_geo = pm.PyNode(face_geo)
     # arrays
     ctlOffsetGroups = ['browInnerAttach_R', 'browOuterAttach_R', 'browInnerAttach_L', 'browOuterAttach_L',
@@ -171,9 +199,12 @@ def browExport(face_geo):
     pm.parent('Brs', 'FaceDeformationFollowHead', w=True)
     # delete extra nodes.
     pm.delete(deleteArray)
+    # export setup.
+    if exportFile:
+        pm.system.exportAll(path, force=True, type="mayaAscii", pr=True)
 
 
-def browImport(face_geo, face_geo_top_node, face_geo_main, namespacesName='XXX:'):
+def browConnect(face_geo, face_geo_top_node, face_geo_main, namespacesName='XXX:'):
     """
     import brow rig and attach with rig.
     :param face_geo: string (geometry from imported file)
@@ -222,7 +253,6 @@ def browImport(face_geo, face_geo_top_node, face_geo_main, namespacesName='XXX:'
     shapes = face_geo.listRelatives(s=True)
     for each in shapes:
         if not each.isIntermediate():
-            print each, face_geo_main
             rivet.transferRivet(each, face_geo_main)
     namespaces.removeNamespace(namespacesName[:-1])
     # lock and parent eyeBrowExtraSystem.

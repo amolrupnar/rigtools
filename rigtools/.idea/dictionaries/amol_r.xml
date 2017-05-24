@@ -2,6 +2,7 @@
   <dictionary name="amol.r">
     <words>
       <w>filt</w>
+      <w>unparent</w>
     </words>
   </dictionary>
 </component>
