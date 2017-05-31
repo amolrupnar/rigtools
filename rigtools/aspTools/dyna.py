@@ -11,6 +11,9 @@ def bakeHair(dynCrvs=None):
     if not dynCrvs:
         # Query all dynamic curve using specific name.
         dynCrvs = pm.ls("*DynIKCurveSoftdyn*", "*:DynIKCurveSoftdyn*", "DynIKCurveSoftdyn*", type='nurbsCurve')
+    else:
+        # convert list into PyNode.
+        dynCrvs = [pm.PyNode(x) for x in dynCrvs]
     # query playback options.
     minFrame = pm.playbackOptions(q=True, min=True)
     maxFrame = pm.playbackOptions(q=True, max=True)
@@ -21,9 +24,12 @@ def bakeHair(dynCrvs=None):
     pm.playbackOptions(min=minFrame - 50, ast=astFrame - 50)
     pm.currentTime(minFrame - 50)
     # set all particle start time -50 from current time.
-    allParticles = pm.ls(type='particle')
-    for each in allParticles:
-        each.startFrame.set(minFrame - 50)
+    # allParticles = pm.ls(type='particle')
+    # for each in allParticles:
+    #     each.startFrame.set(minFrame - 50)
+    for each in dynCrvs:
+        particleShape = each.getParent().getChildren(ad=True, type='particle')[0]
+        particleShape.startFrame.set(minFrame - 50)
     # bake animation curve.
     bake.bakeCurveAnim(dynCrvs, minFrame - 50, maxFrame)
     # off dynamics.
@@ -44,6 +50,9 @@ def unBakeHair(dynCrvs=None):
     """
     if not dynCrvs:
         dynCrvs = pm.ls("*DynIKCurveSoftdyn*", "*:DynIKCurveSoftdyn*", "DynIKCurveSoftdyn*", type='nurbsCurve')
+    else:
+        # convert list into PyNode.
+        dynCrvs = [pm.PyNode(x) for x in dynCrvs]
     for each in dynCrvs:
         particleShape = each.getParent().getChildren(ad=True, type='particle')[0]
         if not pm.isConnected(particleShape.targetGeometry, each.create):
