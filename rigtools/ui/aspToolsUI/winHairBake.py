@@ -2,10 +2,10 @@ import pymel.core as pm
 from PySide import QtGui
 from rigtools.ui.aspToolsUI import ui_hairBake
 from rigtools import maya_utils
-from rigtools.aspTools import dyna
+from rigtools.utils import bake
 
 reload(ui_hairBake)
-reload(dyna)
+reload(bake)
 
 
 class HairBakeUnbake(QtGui.QMainWindow, ui_hairBake.Ui_hairBakeWindow):
@@ -27,41 +27,55 @@ class HairBakeUnbake(QtGui.QMainWindow, ui_hairBake.Ui_hairBakeWindow):
         self.bake_btn.clicked.connect(self.bakeHair)
         self.unbake_btn.clicked.connect(self.unbakeHair)
 
+    def colorChanger(self):
+        print 11111111111
+        sItems = self.dynParticle_LW.selectedItems()
+        # print sItems
+        for each in sItems:
+            print each
+            each.setForeground((QtGui.QColor(255, 0, 0)))
+
     def fillDynListWidget(self):
         self.dynParticle_LW.clear()
         # get all selected characters from ui.
         for eachChar in self.characters_LW.selectedItems():
             char = eachChar.text()
             namespace = char.split(':')[0]
-            dynCrvs = pm.ls(namespace + ':DynIKCurveSoftdyn*', type='nurbsCurve')
-            dynParticles = []
-            for each in dynCrvs:
-                dynParent = each.getParent()
-                dynParticles.append(str(dynParent).replace('DynIKCurveSoftdyn', ''))
-            self.dynParticle_LW.addItems(dynParticles)
+            dynIkHandles = pm.ls(namespace + ':DynIKHandledyn*', type='ikHandle')
+            dynIks = []
+            for each in dynIkHandles:
+                dynIks.append(str(each).replace('DynIKHandledyn', ''))
+            self.dynParticle_LW.addItems(dynIks)
 
     def bakeHair(self):
-        bakeList = []
+        bakeIkList = []
+        bakeParticleList = []
         for each in self.dynParticle_LW.selectedItems():
             namespace = str(each.text().split(':')[0])
-            curveName = str(each.text().split(':')[1])
-            curveTransform = pm.PyNode(namespace + ':DynIKCurveSoftdyn' + curveName)
-            curveShape = curveTransform.getShape()
-            bakeList.extend([curveShape])
-        if not bakeList:
+            dynaName = str(each.text().split(':')[1])
+            ikHandleTransform = pm.PyNode(namespace + ':DynIKHandledyn' + dynaName)
+            particleTransform = pm.PyNode(namespace + ':DynParticledyn' + dynaName)
+            particleShape = particleTransform.getShape()
+            bakeIkList.extend([ikHandleTransform])
+            bakeParticleList.extend([particleShape])
+        if not bakeIkList:
             raise RuntimeError('No Selection found in hair bake window,')
-        dyna.bakeHair(dynCrvs=bakeList)
+        bake.bakeIkJoints(bakeIkList, particleShps=bakeParticleList)
 
     def unbakeHair(self):
-        unbakeList = []
+        unBakeIkList = []
+        unBakeParticleList = []
         for each in self.dynParticle_LW.selectedItems():
-            # x = str(each.text())
-            namespace = each.text().split(':')[0]
-            dynCrvs = pm.ls(str(namespace) + ':DynIKCurveSoftdyn*', type='nurbsCurve')
-            unbakeList.extend(dynCrvs)
-        if not unbakeList:
+            namespace = str(each.text().split(':')[0])
+            dynaName = str(each.text().split(':')[1])
+            ikHandleTransform = pm.PyNode(namespace + ':DynIKHandledyn' + dynaName)
+            particleTransform = pm.PyNode(namespace + ':DynParticledyn' + dynaName)
+            particleShape = particleTransform.getShape()
+            unBakeIkList.extend([ikHandleTransform])
+            unBakeParticleList.extend([particleShape])
+        if not unBakeIkList:
             raise RuntimeError('No Selection found in hair bake window,')
-        dyna.unBakeHair(dynCrvs=unbakeList)
+        bake.unBakeIkJoints(unBakeIkList, particleShps=unBakeParticleList)
 
 
 def main():
