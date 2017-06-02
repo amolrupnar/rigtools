@@ -27,13 +27,17 @@ class HairBakeUnbake(QtGui.QMainWindow, ui_hairBake.Ui_hairBakeWindow):
         self.bake_btn.clicked.connect(self.bakeHair)
         self.unbake_btn.clicked.connect(self.unbakeHair)
 
-    def colorChanger(self):
-        print 11111111111
-        sItems = self.dynParticle_LW.selectedItems()
-        # print sItems
-        for each in sItems:
-            print each
-            each.setForeground((QtGui.QColor(255, 0, 0)))
+    def checkBake(self):
+        for index in xrange(self.dynParticle_LW.count()):
+            a = str(self.dynParticle_LW.item(index).text())
+            namespace = str(a.split(':')[0])
+            dynaName = str(a.split(':')[1])
+            ikHandleTransform = pm.PyNode(namespace + ':DynIKHandledyn' + dynaName)
+            if not ikHandleTransform.ikBlend.get():
+                self.dynParticle_LW.item(index).setForeground((QtGui.QColor(255, 0, 0)))
+            else:
+                self.dynParticle_LW.item(index).setForeground((QtGui.QColor(255, 255, 255)))
+        self.dynParticle_LW.clearSelection()
 
     def fillDynListWidget(self):
         self.dynParticle_LW.clear()
@@ -46,6 +50,7 @@ class HairBakeUnbake(QtGui.QMainWindow, ui_hairBake.Ui_hairBakeWindow):
             for each in dynIkHandles:
                 dynIks.append(str(each).replace('DynIKHandledyn', ''))
             self.dynParticle_LW.addItems(dynIks)
+        self.checkBake()
 
     def bakeHair(self):
         bakeIkList = []
@@ -61,6 +66,7 @@ class HairBakeUnbake(QtGui.QMainWindow, ui_hairBake.Ui_hairBakeWindow):
         if not bakeIkList:
             raise RuntimeError('No Selection found in hair bake window,')
         bake.bakeIkJoints(bakeIkList, particleShps=bakeParticleList)
+        self.checkBake()
 
     def unbakeHair(self):
         unBakeIkList = []
@@ -76,6 +82,7 @@ class HairBakeUnbake(QtGui.QMainWindow, ui_hairBake.Ui_hairBakeWindow):
         if not unBakeIkList:
             raise RuntimeError('No Selection found in hair bake window,')
         bake.unBakeIkJoints(unBakeIkList, particleShps=unBakeParticleList)
+        self.checkBake()
 
 
 def main():
