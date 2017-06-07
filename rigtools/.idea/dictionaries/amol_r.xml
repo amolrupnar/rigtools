@@ -2,7 +2,10 @@
   <dictionary name="amol.r">
     <words>
       <w>anim</w>
+      <w>attrs</w>
       <w>crvs</w>
+      <w>deformer</w>
+      <w>dropoff</w>
       <w>filt</w>
       <w>handledyn</w>
       <w>hndls</w>
@@ -11,6 +14,7 @@
       <w>softdyn</w>
       <w>unbake</w>
       <w>unparent</w>
+      <w>vert</w>
     </words>
   </dictionary>
 </component>

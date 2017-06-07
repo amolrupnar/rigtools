@@ -7,6 +7,7 @@ from rigtools.ui.aspToolsUI import winFkInIkSpine
 from rigtools.ui.aspToolsUI import winFingerAttributes
 from rigtools.ui.extUI import extConn
 from rigtools.ui.utilsUI import utilsConn
+from rigtools.ui.utilsUI import winWireTool
 from rigtools import maya_utils
 from rigtools.ui.extUI import winSkinCopy
 from rigtools.aspTools import tools
@@ -51,6 +52,7 @@ class RigToolsUIConn(MayaQWidgetDockableMixin, QtGui.QMainWindow, rigTools_ui.Ui
         self.Hide_Extra_Joints_btn.clicked.connect(tools.changeDrawStyleOfExtraJoints)
         self.FK_in_IKSpine_btn.clicked.connect(winFkInIkSpine.main)
         self.FingerSDK_btn.clicked.connect(winFingerAttributes.main)
+        self.WireTool_btn.clicked.connect(winWireTool.main)
 
 
 def main():
