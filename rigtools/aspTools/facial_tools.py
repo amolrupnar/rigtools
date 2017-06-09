@@ -104,10 +104,11 @@ class LipSetup(object):
             allHist = pm.listHistory(each, pdo=True)
             for hist in allHist:
                 if hist.nodeType() == 'pointOnCurveInfo':
-                    clusterCurve = hist.inputCurve.orientSampleStatus()[0]
+                    clusterCurve = hist.inputCurve.connections()[0]
                     pm.parent(clusterCurve, clusterSetup)
-                    crvFrmMshEdg = hist.inputCurve.orientSampleStatus()[0].create.orientSampleStatus()[0]
-                    pm.connectAttr('LipRegionShape.worldMesh[0]', crvFrmMshEdg + '.inputMesh', f=True)
+                    crvFrmMshEdg = hist.inputCurve.connections()[0].create.connections()[0]
+                    lipRegionShape = pm.listRelatives('LipRegion', s=True, ni=True)[0]
+                    lipRegionShape.worldMesh[0].connect(crvFrmMshEdg.inputMesh, f=True)
 
         # create dummy head and main.
         pm.delete('Brs_orientConstraint1', 'FaceAllSet', 'FaceControlSet', 'MainAndHeadScaleMultiplyDivide',
@@ -145,7 +146,7 @@ class LipSetup(object):
             allHist = pm.listHistory(each, pdo=True)
             for hist in allHist:
                 if hist.nodeType() == 'pointOnCurveInfo':
-                    crvFrmMshEdg = hist.inputCurve.orientSampleStatus()[0].create.orientSampleStatus()[0]
+                    crvFrmMshEdg = hist.inputCurve.connections()[0].create.connections()[0]
                     self.face_geo.worldMesh[0].connect(crvFrmMshEdg.inputMesh, f=True)
         # add blendshape.
         for each in self.lip_geos:
