@@ -12,7 +12,6 @@ def getClosestVertex(geo, obj):
     geo = pm.PyNode(geo)
     obj = pm.PyNode(obj)
     pos = obj.getRotatePivot(space='world')
-    # nodeDagPath = OpenMaya.MDagPath()
     try:
         selectionList = OpenMaya.MSelectionList()
         selectionList.add(geo.name())
@@ -20,7 +19,6 @@ def getClosestVertex(geo, obj):
         selectionList.getDagPath(0, nodeDagPath)
     except:
         raise RuntimeError('OpenMaya.MDagPath() failed on %s' % geo.name())
-    nodeDagPath = OpenMaya.MDagPath()
     mfnMesh = OpenMaya.MFnMesh(nodeDagPath)
 
     pointA = OpenMaya.MPoint(pos.x, pos.y, pos.z)
