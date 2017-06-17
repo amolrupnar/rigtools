@@ -1,29 +1,30 @@
 from PySide import QtGui
 
-from rigtools import maya_utils
+from rigtools.ui import ar_qui
 from rigtools.ui.aspToolsUI import ui_aspFingerAttributes
-from rigtools.ui import ui_fill
-from rigtools.aspTools import fingers
+from rigtools.ui import ar_uiFill
 
 reload(ui_aspFingerAttributes)
 
 
 class FingerAttributeConn(QtGui.QMainWindow, ui_aspFingerAttributes.Ui_FingerAttributeWindow):
-    def __init__(self, prnt=None):
-        super(FingerAttributeConn, self).__init__(prnt)
+    def __init__(self, parent=None):
+        super(FingerAttributeConn, self).__init__(parent)
         self.setupUi(self)
         self.connections()
 
     def connections(self):
-        self.aspFaLoadDriver_btn.clicked.connect(lambda: ui_fill.fillLineEdit(self.aspFaDriverControllers_LE))
-        self.aspFaLoadFingers_btn.clicked.connect(lambda: ui_fill.fillListInLineEdit(self.aspFaFingerControllers_LE))
+        self.aspFaLoadDriver_btn.clicked.connect(lambda: ar_uiFill.ar_fillLineEdit(self.aspFaDriverControllers_LE))
+        self.aspFaLoadFingers_btn.clicked.connect(
+            lambda: ar_uiFill.ar_fillListInLineEdit(self.aspFaFingerControllers_LE))
 
     def asFingerAttributeConn(self):
-        with maya_utils.UndoChunkOpen('add Finger Attributes'):
+        with ar_qui.ar_undoChunkOpen('add Finger Attributes'):
             driver = self.aspFaDriverControllers_LE.text()
-            controllers = ui_fill.extractLineEditList(self.aspFaFingerControllers_LE)
+            controllers = ar_uiFill.ar_extractLineEditList(self.aspFaFingerControllers_LE)
+            # TODO: pending ui.
 
 
 def main():
-    winClass = FingerAttributeConn(maya_utils.maya_main_window())
+    winClass = FingerAttributeConn(ar_qui.ar_mayaMainWindow())
     return winClass.show()

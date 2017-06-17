@@ -1,9 +1,16 @@
 import pymel.core as pm
 import maya.cmds as cmds
 
+from rigtools.ui import ar_qui
 
-def findDuplicates():
-    """@brief Check for nodes with duplicate name and add them to errors node.
+reload(ar_qui)
+
+
+def ar_findDuplicates():
+    """
+    @ brief Check for nodes with duplicate name and add them to errors node.
+    Returns:
+            bool.
     """
     duplicateNames = list()
     for node in pm.ls():
@@ -14,22 +21,27 @@ def findDuplicates():
                 if len(pm.ls(node)) > 1:
                     duplicateNames.append(str(node))
     if not duplicateNames:
-        print ('No duplicates in scene...'),
+        ar_qui.ar_displayMessage('success', 'No duplicates in scene...')
         return True
     pm.select(cl=True)
     if pm.objExists('SET_duplicate_names'):
         pm.delete('SET_duplicate_names')
     pm.sets(n='SET_duplicate_names', em=True).union(duplicateNames)
-    print ('%s duplicate objects has been found and put in the "SET_duplicate_names".' % len(duplicateNames)),
+    ar_qui.ar_displayMessage('success',
+                             '%s duplicate objects has been found and put in the "SET_duplicate_names".' % len(
+                                 duplicateNames)),
     return False
 
 
-def createAndParentNewShape(parent, newShapeName):
+def ar_createAndParentNewShape(parent, newShapeName):
     """
-    create new shape from parent add it on as shape parent with parent.
-    :param parent: string
-    :param newShapeName: string
-    :return: newShape
+    @ create new shape from parent add it on as shape parent with parent.
+    Args:
+        parent (str): duplicate this object and parent duplicated shape with this.
+        newShapeName (str): new shape name.
+
+    Returns:
+            newShape.
     """
     parent = pm.PyNode(parent)
     dupParent = pm.duplicate(parent, rr=True)
@@ -41,11 +53,14 @@ def createAndParentNewShape(parent, newShapeName):
     return str(newShape)
 
 
-def identifyInpOutShapes(source):
+def ar_identifyInpOutShapes(source):
     """
-    identify shapes who has inputs and output connection.
-    :param source: string
-    :return: inputShape and output shape.
+    @ identify shapes who has inputs and output connection.
+    Args:
+        source (str): transform of object.
+
+    Returns:
+            inpShape, outShape.
     """
     # get inputs from source.
     source = pm.PyNode(source)
@@ -59,43 +74,51 @@ def identifyInpOutShapes(source):
             else:
                 inpShape = each
     else:
-        pm.warning('source mesh has more than two shapes or only one shape...')
+        ar_qui.ar_displayMessage('warning', 'source mesh has more than two shapes or only one shape...')
         return False
     return str(inpShape), str(outShape)
 
 
-def parentHirarchy(sel=None):
+def ar_parentHirarchy(sel=None):
     """
-    parent objects using selection order.
-    parent selection needs to be in children to parent.
-    :param sel: list
-    :return: parented chain
+    @ parent objects using selection order.
+    Args:
+        sel (list): object order like child to parent.
+
+    Returns:
+            bool.
     """
     if not sel:
         sel = cmds.ls(sl=True)
     if len(sel) < 2:
-        cmds.warning('Please select two or more item...')
+        ar_qui.ar_displayMessage('warning', 'Please select two or more item...')
     else:
         for i in range(len(sel) - 1):
             cmds.parent(sel[i], sel[i + 1])
         cmds.select(sel[len(sel) - 1])
+    return True
 
 
-def zeroOut(sel=None):
+def ar_zeroOut(sel=None):
     """
-    zeroOut all the selected objects.
-    :param sel: list
-    :return: upper group
+    @ zeroOut all the selected objects.
+    Args:
+        sel (list): objects for zero out.
+
+    Returns:
+            groups.
     """
     if not sel:
         sel = cmds.ls(sl=True)
     if not sel:
-        cmds.warning('Please select at least on object...')
+        ar_qui.ar_displayMessage('warning', 'Please select at least on object...')
     else:
+        groups = list()
         for i in range(len(sel)):
             name = sel[i] + 'ZERO'
             if cmds.objExists(name):
-                raise RuntimeError('%s is already exist please rename it and run zeroOut again...' % name)
+                ar_qui.ar_displayMessage('error', '%s is already exist please rename it and zeroOut again..' % name)
+                return False
             else:
                 grp = cmds.group(em=True, w=True, n=name)
                 par = cmds.listRelatives(sel[i], p=True)
@@ -105,3 +128,5 @@ def zeroOut(sel=None):
                     pass
                 else:
                     cmds.parent(grp, par[0])
+            groups.append(grp)
+        return groups

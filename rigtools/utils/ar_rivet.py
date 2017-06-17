@@ -1,12 +1,19 @@
 import pymel.core as pm
 
+from rigtools.ui import ar_qui
 
-def transferRivet(source, dest):
+reload(ar_qui)
+
+
+def ar_transferRivet(source, dest):
     """
-    transfer loft CurceFromMeshEdge connection from source to destination geometry.
-    :param source: string (shape node)
-    :param dest: string (shape node)
-    :return: crvFrmMshEdg
+    @ transfer loft CurveFromMeshEdge connection from source to destination geometry.
+    Args:
+        source (str): source shape node.
+        dest (str): destination shape node.
+
+    Returns:
+            crvFrmMshEdg.
     """
     source = pm.PyNode(source)
     dest = pm.PyNode(dest)
@@ -19,4 +26,5 @@ def transferRivet(source, dest):
     for each in crvFrmMshEdg:
         # noinspection PyTypeChecker
         pm.connectAttr('{0}.worldMesh[0]'.format(dest), '{0}.inputMesh'.format(each), f=True)
+    ar_qui.ar_displayMessage('success', 'all rivet transfer done.')
     return crvFrmMshEdg

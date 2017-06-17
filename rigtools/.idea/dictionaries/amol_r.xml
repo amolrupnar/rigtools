@@ -4,14 +4,21 @@
       <w>anim</w>
       <w>attrs</w>
       <w>crvs</w>
+      <w>ctrls</w>
       <w>deformer</w>
+      <w>dest</w>
       <w>dropoff</w>
       <w>filt</w>
+      <w>fkproxy</w>
+      <w>freezed</w>
       <w>handledyn</w>
+      <w>hirarchy</w>
       <w>hndls</w>
       <w>particledyn</w>
+      <w>retval</w>
       <w>shps</w>
       <w>softdyn</w>
+      <w>timeline</w>
       <w>unbake</w>
       <w>unparent</w>
       <w>vert</w>

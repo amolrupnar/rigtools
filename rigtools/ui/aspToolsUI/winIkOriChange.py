@@ -1,29 +1,34 @@
 from PySide import QtGui
 
-from rigtools import maya_utils
+from rigtools.ui import ar_qui
 from rigtools.ui.aspToolsUI import ui_aspIKOriChange
-from rigtools.ui import ui_fill
-from rigtools.aspTools import tools
+from rigtools.ui import ar_uiFill
+from rigtools.aspTools import ar_asTools
+
+reload(ar_qui)
+reload(ui_aspIKOriChange)
+reload(ar_uiFill)
+reload(ar_asTools)
 
 
 class IkOrientUIConn(QtGui.QMainWindow, ui_aspIKOriChange.Ui_aspIKOriChangeWindow):
-    def __init__(self, prnt=None):
-        super(IkOrientUIConn, self).__init__(prnt)
+    def __init__(self, parent=None):
+        super(IkOrientUIConn, self).__init__(parent)
         self.setupUi(self)
         self.connections()
 
     def connections(self):
-        self.aspIkOriJntLd_btn.clicked.connect(lambda: ui_fill.fillLineEdit(self.aspIkOriJnt_LE))
-        self.aspIkOriCtlLd_btn.clicked.connect(lambda: ui_fill.fillLineEdit(self.aspIkOriCtl_LE))
+        self.aspIkOriJntLd_btn.clicked.connect(lambda: ar_uiFill.ar_fillLineEdit(self.aspIkOriJnt_LE))
+        self.aspIkOriCtlLd_btn.clicked.connect(lambda: ar_uiFill.ar_fillLineEdit(self.aspIkOriCtl_LE))
         self.aspIkOriSet_btn.clicked.connect(self.asIKCtlOriChangeConn)
 
     def asIKCtlOriChangeConn(self):
-        with maya_utils.UndoChunkOpen('Ik Orient Change'):
+        with ar_qui.ar_undoChunkOpen('Ik Orient Change'):
             jnt = self.aspIkOriJnt_LE.text()
             ctl = self.aspIkOriCtl_LE.text()
-            tools.asIKCtlOriChange(jnt, ctl)
+            ar_asTools.ar_asIKCtlOriChange(jnt, ctl)
 
 
 def main():
-    winClass = IkOrientUIConn(maya_utils.maya_main_window())
+    winClass = IkOrientUIConn(ar_qui.ar_mayaMainWindow())
     return winClass.show()

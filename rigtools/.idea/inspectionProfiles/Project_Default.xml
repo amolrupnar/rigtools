@@ -160,6 +160,7 @@
           <option value="N806" />
           <option value="N803" />
           <option value="N813" />
+          <option value="N801" />
         </list>
       </option>
     </inspection_tool>
@@ -167,6 +168,8 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="Shiboken.wrapInstance" />
+          <option value="str.setText" />
+          <option value="str.text" />
         </list>
       </option>
     </inspection_tool>

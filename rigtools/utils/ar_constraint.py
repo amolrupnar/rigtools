@@ -1,20 +1,27 @@
 from maya import cmds as cmds
 
+from rigtools.ui import ar_qui
 
-def aimConstraintParent(aimValue, objValue, sel=None, freeze=True):
+reload(ar_qui)
+
+
+def ar_aimConstraintParent(aimValue, objValue, sel=None, freeze=True):
     """
-    do create aimConstraint according to ui based axis and delete constraint
-    then parent first selected object and freeze transformation.
-    :param sel: list (joint)
-    :param aimValue: list ([1,0,0])
-    :param objValue: list ([1,0,0])
-    :param freeze: bool (maintain offset set to on or off)
-    :return: aimConstraint (deleted.)
+    @ do create aimConstraint according to ui based axis and delete constraint,
+    @ then parent first selected object and freeze transformation.
+    Args:
+        aimValue (list): [1,0,0]
+        objValue (list): [1,0,0]
+        sel (list): two objects selection order is aimObject and then main object.
+        freeze (bool): maintain offset set to on or off.
+
+    Returns:
+            bool.
     """
     if not sel:
         sel = cmds.ls(sl=True)
     if len(sel) != 2:
-        cmds.warning('please select two objects...')
+        ar_qui.ar_displayMessage('error', 'please select two objects...')
         return False
     cmds.select(cl=True)
     # create locator and snap on selection one.
@@ -38,22 +45,27 @@ def aimConstraintParent(aimValue, objValue, sel=None, freeze=True):
     # delete locator.
     cmds.delete(loc[0])
     cmds.select(sel[1])
+    ar_qui.ar_displayMessage('success', 'constraint done')
+    return True
 
 
-def aimConstraint(aimValue, objValue, sel=None, freeze=True):
+def ar_aimConstraint(aimValue, objValue, sel=None, freeze=True):
     """
-    do create aim constraint according to ui based axis and delete constraint.
-    and freeze transform second selected joint.
-    :param aimValue: list ([1,0,0])
-    :param objValue: list ([1,0,0])
-    :param sel: list (joint)
-    :param freeze: bool (maintain offset set to on or off)
-    :return: aimConstraint (deleted.)
+    @ do create aim constraint according to ui based axis and delete constraint,
+    @ and freeze transform second selected joint.
+    Args:
+        aimValue (list): [1,0,0]
+        objValue (list): [1,0,0]
+        sel (list): two objects selection order is aimObject and then main object.
+        freeze (bool): maintain offset set to on or off.
+
+    Returns:
+            bool.
     """
     if not sel:
         sel = cmds.ls(sl=True)
     if len(sel) != 2:
-        cmds.warning('please select two objects...')
+        ar_qui.ar_displayMessage('error', 'please select two objects...')
         return False
     cmds.select(cl=True)
     # create locator and snap on selection one.
@@ -72,19 +84,24 @@ def aimConstraint(aimValue, objValue, sel=None, freeze=True):
     # delete locator.
     cmds.delete(loc[0])
     cmds.select(sel[1])
+    ar_qui.ar_displayMessage('success', 'constraint done')
+    return True
 
 
-def multiPointConstraint(maintainOffset, sel=None):
+def ar_multiPointConstraint(maintainOffset, sel=None):
     """
-    point constraint all selected item with last selected object.
-    :param sel: list (joint)
-    :param maintainOffset: bool (joint)
-    :return: point constraint.
+    @ point constraint all selected item with last selected object.
+    Args:
+        maintainOffset (bool): set maintain offset on or off.
+        sel (list): objects has to be constraint.
+
+    Returns:
+            bool.
     """
     if not sel:
         sel = cmds.ls(sl=True)
     if not sel:
-        cmds.warning('no objects selected...')
+        ar_qui.ar_displayMessage('warning', 'no objects selected...')
         return False
     if maintainOffset:
         for i in range(len(sel) - 1):
@@ -94,19 +111,24 @@ def multiPointConstraint(maintainOffset, sel=None):
         for i in range(len(sel) - 1):
             parentObj = sel[len(sel) - 1]
             cmds.pointConstraint(parentObj, sel[i])
+    ar_qui.ar_displayMessage('success', 'constraint done')
+    return True
 
 
-def multiOrientConstraint(maintainOffset, sel=None):
+def ar_multiOrientConstraint(maintainOffset, sel=None):
     """
-    orient constraint all selected item with last selected object.
-    :param sel: list (joint)
-    :param maintainOffset: bool (joint)
-    :return: orient constraint.
+    @ orient constraint all selected item with last selected object.
+    Args:
+        maintainOffset (bool): set maintain offset on or off.
+        sel (list): objects has to be constraint.
+
+    Returns:
+            bool.
     """
     if not sel:
         sel = cmds.ls(sl=True)
     if not sel:
-        cmds.warning('no objects selected...')
+        ar_qui.ar_displayMessage('warning', 'no objects selected...')
         return False
     if maintainOffset:
         for i in range(len(sel) - 1):
@@ -116,19 +138,23 @@ def multiOrientConstraint(maintainOffset, sel=None):
         for i in range(len(sel) - 1):
             parentObj = sel[len(sel) - 1]
             cmds.orientConstraint(parentObj, sel[i])
+    return True
 
 
-def multiParentConstraint(maintainOffset, sel=None):
+def ar_multiParentConstraint(maintainOffset, sel=None):
     """
-    parent constraint all selected item with last selected object.
-    :param sel: list (joint)
-    :param maintainOffset: bool (joint)
-    :return: parent constraint
+    @ parent constraint all selected item with last selected object.
+    Args:
+        maintainOffset (bool): set maintain offset on or off.
+        sel (list): objects has to be constraint.
+
+    Returns:
+            bool.
     """
     if not sel:
         sel = cmds.ls(sl=True)
     if not sel:
-        cmds.warning('no objects selected...')
+        ar_qui.ar_displayMessage('warning', 'no objects selected...')
         return False
     if maintainOffset:
         for i in range(len(sel) - 1):
@@ -138,3 +164,4 @@ def multiParentConstraint(maintainOffset, sel=None):
         for i in range(len(sel) - 1):
             parentObj = sel[len(sel) - 1]
             cmds.parentConstraint(parentObj, sel[i])
+    return True

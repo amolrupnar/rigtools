@@ -1,13 +1,20 @@
 import maya.OpenMaya as OpenMaya
 import pymel.core as pm
 
+from rigtools.ui import ar_qui
 
-def getClosestVertex(geo, obj):
+reload(ar_qui)
+
+
+def ar_getClosestVertex(geo, obj):
     """
-    get closest vertex of obj
-    :param geo: string
-    :param obj: string
-    :return: closestVert
+    @ get closest vertex of obj.
+    Args:
+        geo (str): geometry.
+        obj (str): object.
+
+    Returns:
+            closestVert.
     """
     geo = pm.PyNode(geo)
     obj = pm.PyNode(obj)
@@ -17,8 +24,9 @@ def getClosestVertex(geo, obj):
         selectionList.add(geo.name())
         nodeDagPath = OpenMaya.MDagPath()
         selectionList.getDagPath(0, nodeDagPath)
-    except:
-        raise RuntimeError('OpenMaya.MDagPath() failed on %s' % geo.name())
+    except RuntimeError:
+        ar_qui.ar_displayMessage('error', 'OpenMaya.MDagPath() failed on %s' % geo.name())
+        return False
     mfnMesh = OpenMaya.MFnMesh(nodeDagPath)
 
     pointA = OpenMaya.MPoint(pos.x, pos.y, pos.z)

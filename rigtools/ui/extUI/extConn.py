@@ -1,7 +1,12 @@
 from maya import cmds as cmds
 
-from rigtools.ext import gen, selection, skin
-from rigtools import maya_utils
+from rigtools.ui import ar_qui
+from rigtools.ext import ar_gen, ar_selection, ar_skin
+
+reload(ar_qui)
+reload(ar_gen)
+reload(ar_selection)
+reload(ar_skin)
 
 
 # --------------------------------------------------------------
@@ -9,31 +14,34 @@ from rigtools import maya_utils
 # --------------------------------------------------------------
 def findDuplicatesConn():
     """
-    findDuplicates UI connections.
-    :return: ui connection
+    @ findDuplicates UI connections.
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('jointsOnSelection'):
-        gen.findDuplicates()
+    with ar_qui.ar_undoChunkOpen('jointsOnSelection'):
+        ar_gen.ar_findDuplicates()
 
 
 def zeroOutConn():
     """
-    zeroOut UI connections.
-    :return: ui connection
+    @ zeroOut UI connections.
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('zeroOut'):
+    with ar_qui.ar_undoChunkOpen('zeroOut'):
         sel = cmds.ls(sl=True)
-        gen.zeroOut(sel)
+        ar_gen.ar_zeroOut(sel)
 
 
 def parentHirarchyConn():
     """
-    parentHierarchy UI connections.
-    :return: ui connection
+    @ parentHierarchy UI connections.
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('parentHirarchy'):
+    with ar_qui.ar_undoChunkOpen('parentHirarchy'):
         sel = cmds.ls(sl=True)
-        gen.parentHirarchy(sel)
+        ar_gen.ar_parentHirarchy(sel)
 
 
 # --------------------------------------------------------------
@@ -41,11 +49,12 @@ def parentHirarchyConn():
 # --------------------------------------------------------------
 def selectAllConn():
     """
-    selectAll UI connections.
-    :return: ui connections
+    @ selectAll UI connections.
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('selectAll'):
-        selection.selectAll()
+    with ar_qui.ar_undoChunkOpen('selectAll'):
+        ar_selection.ar_selectAll()
 
 
 # --------------------------------------------------------------
@@ -53,27 +62,29 @@ def selectAllConn():
 # --------------------------------------------------------------
 def selectInfluenceObjConn():
     """
-    getInfluenceJoint UI Connections.
-    :return: ui connection
+    @ getInfluenceJoint UI Connections.
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('selectInfluenceObj'):
+    with ar_qui.ar_undoChunkOpen('selectInfluenceObj'):
         sel = cmds.ls(sl=True)
         if sel:
-            infObj = skin.getInfluenceJoint(sel)
+            infObj = ar_skin.ar_getInfluenceJoint(sel)
             cmds.select(infObj, r=True)
-            print('%s influence objects is selected..' % len(infObj)),
+            ar_qui.ar_displayMessage('success', '%s influence objects is selected..' % len(infObj))
         else:
-            cmds.warning('your selection is empty')
+            ar_qui.ar_displayMessage('warning', 'your selection is empty')
 
 
 def shiftInputOutputConnectionsConn():
     """
-    shiftInputOutputConnections UI connections.
-    :return: ui connection
+    @ shiftInputOutputConnections UI connections.
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('shiftInputOutputConnections'):
+    with ar_qui.ar_undoChunkOpen('shiftInputOutputConnections'):
         sourceInp = cmds.textField('srcInp_LE', q=True, tx=True)
         sourceOut = cmds.textField('srcOut_LE', q=True, tx=True)
         destInp = cmds.textField('destInp_LE', q=True, tx=True)
         destOut = cmds.textField('destOut_LE', q=True, tx=True)
-        skin.shiftInputOutputConnections(sourceInp, sourceOut, destInp, destOut)
+        ar_skin.ar_shiftInputOutputConnections(sourceInp, sourceOut, destInp, destOut)

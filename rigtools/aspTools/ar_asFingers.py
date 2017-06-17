@@ -1,12 +1,19 @@
 from maya import cmds as cmds
 from pymel import core as pm
 
+from rigtools.ui import ar_qui
 
-def rt_addFingerAttributes(drivers):
+reload(ar_qui)
+
+
+def ar_addFingerAttributes(drivers):
     """
-    add finger extra attribute on Finger main controller.
-    :param drivers: list
-    :return: fingers connnections
+    @ add finger extra attribute on Finger main controller.
+    Args:
+        drivers (list): driver controllers.
+
+    Returns:
+            bool.
     """
     attributes = ['_Scrunch', '_Twist', '_Lean', '_Scale']
     fingerBranch = ['Index', 'Middle', 'Ring', 'Pinky', 'Thumb']
@@ -18,15 +25,19 @@ def rt_addFingerAttributes(drivers):
             for z in range(len(fingerBranch)):
                 cmds.addAttr(drivers[i], ln=fingerBranch[z] + attributes[x], at="double", k=True)
             dispAttr += '_'
+    return True
 
 
-def rt_addScrunch(attribute, controllers, axis='ry'):
+def ar_addScrunch(attribute, controllers, axis='ry'):
     """
-    add scrunch connections on controllers upper group.
-    :param attribute: string
-    :param controllers: list
-    :param axis: string ('rx' or 'ry' or 'rz')
-    :return: connections.
+    @ add scrunch connections on controllers upper group.
+    Args:
+        attribute (str): attribute with object name.
+        controllers (list): list of one finger controllers in order of start to end.
+        axis (str): sample of axis, 'rx' or 'ry' or 'rz'.
+
+    Returns:
+            bool.
     """
     for a in range(len(controllers)):
         controllers[a] = pm.PyNode(controllers[a])
@@ -43,19 +54,24 @@ def rt_addScrunch(attribute, controllers, axis='ry'):
             pm.connectAttr(attribute, pma + '.input1D[0]', f=True)
             parentGrp = controllers[a].getParent()
             pm.connectAttr(pma + '.output1D', parentGrp + '.' + axis, f=True)
-    print ('---- "%s" ----    connections done.....' % attribute),
+    ar_qui.ar_displayMessage('success', '---- "%s" ----    connections done.....' % attribute)
+    return True
 
 
-def rt_addFingerAttributeConnections(attribute, controllers, axis='rx'):
+def ar_addFingerAttributeConnections(attribute, controllers, axis='rx'):
     """
-    add twist connections on controllers upper group.
-    :param attribute: string
-    :param controllers: list
-    :param axis: string ('rx' or 'ry' or 'rz' or 'tx' or 'ty' or 'tz')
-    :return: connections.
+    @ add twist connections on controllers upper group.
+    Args:
+        attribute (str): attribute with object name.
+        controllers (list): list of one finger controllers in order of start to end.
+        axis (str): sample of axis, 'rx' or 'ry' or 'rz'.
+
+    Returns:
+            bool.
     """
     for a in range(len(controllers)):
         controllers[a] = pm.PyNode(controllers[a])
         parentGrp = controllers[a].getParent()
         pm.connectAttr(attribute, parentGrp + "." + axis)
-    print ('---- "%s" ----    connections done.....' % attribute),
+    ar_qui.ar_displayMessage('success', '---- "%s" ----    connections done.....' % attribute)
+    return True

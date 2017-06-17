@@ -1,7 +1,12 @@
 import maya.cmds as cmds
 
 
-def stretch():
+def ar_addStretchSquash():
+    """
+    @ function is in under process.
+    Returns:
+
+    """
     setupName = 'Nose'
     sel = cmds.ls(sl=True)
     chain = cmds.ls(sel[0], dag=True, typ='joint')
@@ -59,3 +64,4 @@ def stretch():
     for each in scaledJoint:
         cmds.connectAttr(mdnForYZ + '.outputX', each + '.sy')
         cmds.connectAttr(mdnForYZ + '.outputX', each + '.sz')
+        # TODO: need to full proof this function.

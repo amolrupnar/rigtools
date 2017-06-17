@@ -1,14 +1,19 @@
 import pymel.core as pm
 
+from rigtools.ui import ar_qui
 
-def addBlendShape(source, target):
+reload(ar_qui)
+
+
+def ar_addBlendShape(source, target):
     """
-    add blendshape in target
-    if blendshape is already exist in source it add in that,
-    otherwise create a new blendshape.
-    :param source: string (transform)
-    :param target: string (transform)
-    :return: blendshape
+    @ add blendshape in target.
+    Args:
+        source (str):  transform of source geometry.
+        target (str): transform of target geometry.
+
+    Returns:
+            bool.
     """
     source = pm.PyNode(source)
     target = pm.PyNode(target)
@@ -30,4 +35,6 @@ def addBlendShape(source, target):
         pm.blendShape(face_blend, edit=True, t=(target, weightCount + 1, source, 1.0))
         face_blend.setWeight(weightCount + 1, 1)
     else:
-        pm.warning('geometry have more than one blenshapes found...')
+        ar_qui.ar_displayMessage('error', 'geometry have more than one blenshapes found...')
+        return False
+    return True

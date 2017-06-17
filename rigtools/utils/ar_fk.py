@@ -1,18 +1,25 @@
 from maya import cmds as cmds
 
+from rigtools.ui import ar_qui
 
-def fkchain(axis, sel=None):
+reload(ar_qui)
+
+
+def ar_addFk(axis, sel=None):
     """
-    create fk controller chain on selected joint.
-    :param axis: list ([1,0,0])
-    :param sel: list (joint)
-    :return: fkchain
+    @ create fk controller chain on selected joint.
+    Args:
+        axis (list): axis example [1,0,0].
+        sel (list): joints.
+
+    Returns:
+            controller.
     """
     # get selection.
     if not sel:
         sel = cmds.ls(sl=True)
     if not sel:
-        cmds.warning('Please select at least one joint')
+        ar_qui.ar_displayMessage('warning', 'Please select at least one joint.')
         return False
     for x in range(len(sel)):
         chain = cmds.ls(sel[x], dag=True, typ='joint')
@@ -40,9 +47,11 @@ def fkchain(axis, sel=None):
                 cmds.delete(cmds.parentConstraint(chain[i], fkxGrp))
                 cmds.parent(fkxGrp, controller[i - 1])
                 cmds.parentConstraint(fkxGrp, chain[i])
+        ar_qui.ar_displayMessage('success', 'done add fk controllers.')
+        return controller
 
 
-def fkProxy(axis, sel=None):
+def ar_addFkProxy(axis, sel=None):
     """
     create fk proxy setup. will add it soon.
     :param axis: list ([1,0,0])
@@ -52,5 +61,6 @@ def fkProxy(axis, sel=None):
     if not sel:
         sel = cmds.ls(sl=True)
     if not sel:
-        raise RuntimeError('No selections is present.')
-    print ('%s this tool will be coming soon...' % axis)
+        ar_qui.ar_displayMessage('success', 'No selections is present.')
+    ar_qui.ar_displayMessage('success', '%s this tool will be coming soon...' % axis)
+    # TODO: need to add fk proxy rig on existing or new.

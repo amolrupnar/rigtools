@@ -3,15 +3,26 @@ import maya.mel as mel
 import os
 import tempfile
 
-from rigtools.utils import blendshapeUtils
-from rigtools.utils import namespaces
-from rigtools.utils import rivet
+from rigtools.utils import ar_blendshape
+from rigtools.utils import ar_namespaces
+from rigtools.utils import ar_rivet
+from rigtools.ui import ar_qui
 
-reload(blendshapeUtils)
-reload(namespaces)
+reload(ar_blendshape)
+reload(ar_namespaces)
+reload(ar_rivet)
+reload(ar_qui)
 
 
 def _hierarchyChecker(namespaceName):
+    """
+    @ check the hierarchy for ar_facialTools.
+    Args:
+        namespaceName (str): add namespace with colon. 
+
+    Returns:
+            bool.
+    """
     groups = ['FaceGroup', 'FaceMotionSystem', 'FaceDeformationSystem', 'FaceMotionFollowHead', 'ControlsSetup',
               'RegionDeformations']
     existed = []
@@ -31,21 +42,23 @@ def _hierarchyChecker(namespaceName):
             pm.parent(namespaceName + 'LipRegion', namespaceName + 'LipsRegion', 'RegionDeformations')
             pm.parent(namespaceName + 'faceHeadJoint', 'FaceDeformationSystem')
             pm.delete(namespaceName + 'FaceGroup')
-            namespaces.removeNamespace(namespaceName)
+            ar_namespaces.ar_removeNamespace(namespaceName)
             pm.orientConstraint('Head_M', 'Brs', mo=True)
             ret = True
         else:
-            pm.warning('default hierarchy is exist but not proper, please undo step and match hierarchy...'),
+            ar_qui.ar_displayMessage('warning',
+                                     'default hierarchy is exist but not proper, please undo step and match hierarchy.')
             ret = False
     else:
         if len(notExisted) == len(groups):
             pm.parent(namespaceName + 'FaceGroup', 'Rig')
-            namespaces.removeNamespace(namespaceName)
+            ar_namespaces.ar_removeNamespace(namespaceName)
             pm.orientConstraint('Head_M', 'Brs', mo=True)
             pm.orientConstraint('Head_M', 'FaceMotionFollowHead', mo=True)
             ret = True
         else:
-            pm.warning('default hierarchy is exist but not proper, please undo step and match hierarchy...'),
+            ar_qui.ar_displayMessage('warning',
+                                     'default hierarchy is exist but not proper, please undo step and match hierarchy.')
             ret = False
     if ret:
         if pm.objExists('Main'):
@@ -59,13 +72,16 @@ def _hierarchyChecker(namespaceName):
         return False
 
 
-class LipSetup(object):
+class Ar_LipSetup(object):
     def __init__(self, face_geo=None, face_geo_top_node=None, namespaceName='XXX:', exportFile=False, path=None):
         """
-        export and import only Lip rig part from asp face rig.
-        :param face_geo: string (face geometry)
-        :param face_geo_top_node: string (top group of your face geometry.)
-        :param namespaceName: string (namespace like 'XYZ')
+        @ export and import only Lip rig part from asp face rig.
+        Args:
+            face_geo (str): face geometry.
+            face_geo_top_node (str): top group of face geometry.
+            namespaceName (str): namespace with colon.
+            exportFile (bool): want to export file or not.
+            path (str): path for the export or import file.
         """
         if not face_geo:
             self.face_geo = None
@@ -134,13 +150,16 @@ class LipSetup(object):
         mel.eval("MLdeleteUnused")
         if self.exportFile:
             pm.system.exportAll(self.path, force=True, type="mayaAscii", pr=True)
+        ar_qui.ar_displayMessage('success', 'export lip setup')
 
     def connectLipSetup(self):
         if not _hierarchyChecker(self.namespaceName):
             pm.windows.confirmDialog(title='Hierarchy Error',
                                      message='Hierarchy has some error please\nplease opens script editor for details.',
                                      button=['Yes', 'No'], defaultButton='Yes', cancelButton='No', dismissString='No')
-            raise RuntimeError('Hierarchy is not proper.')
+            ar_qui.ar_displayDialogue('error', 'Hierarchy is not proper.')
+            ar_qui.ar_displayMessage('error', 'Hierarchy is not proper.')
+            return False
         # connect all rivet to "self.face_geo" geometry.
         for each in self.lipCtrlGrps:
             allHist = pm.listHistory(each, pdo=True)
@@ -150,16 +169,19 @@ class LipSetup(object):
                     self.face_geo.worldMesh[0].connect(crvFrmMshEdg.inputMesh, f=True)
         # add blendshape.
         for each in self.lip_geos:
-            blendshapeUtils.addBlendShape(each, self.face_geo)
+            ar_blendshape.ar_addBlendShape(each, self.face_geo)
 
 
-def browExport(face_geo, exportFile=False, path=None):
+def ar_browExport(face_geo, exportFile=False, path=None):
     """
-    export brow rig from asp face rig.
-    :param face_geo: string
-    :param exportFile: bool
-    :param path: string (maya file path)
-    :return: browSetup
+    @ export brow rig from asp face rig.
+    Args:
+        face_geo (str): face geometry.
+        exportFile (bool): want to export the file or not.
+        path (str): path for export file.
+
+    Returns:
+            bool.
     """
     # path queries.
     if not path:
@@ -179,7 +201,9 @@ def browExport(face_geo, exportFile=False, path=None):
     # check parenting.
     parent = face_geo.getParent()
     if not parent:
-        raise RuntimeError(str(face_geo), 'Has no top group.')
+        ar_qui.ar_displayDialogue('error', (str(face_geo), 'Has no top group.'))
+        ar_qui.ar_displayMessage('error', (str(face_geo), 'Has no top group.'))
+        return False
     # delete blendshape node.
     blendshapeNode = []
     hist = face_geo.listHistory()
@@ -187,7 +211,9 @@ def browExport(face_geo, exportFile=False, path=None):
         if type(each) == pm.nodetypes.BlendShape:
             blendshapeNode.append(each)
     if len(blendshapeNode) != 1:
-        raise RuntimeError('blendshape node is more than one or not exist.')
+        ar_qui.ar_displayDialogue('error', 'blendshape node is more than one or not exist.')
+        ar_qui.ar_displayMessage('error', 'blendshape node is more than one or not exist.')
+        return False
     else:
         pm.delete(blendshapeNode[0])
 
@@ -203,16 +229,21 @@ def browExport(face_geo, exportFile=False, path=None):
     # export setup.
     if exportFile:
         pm.system.exportAll(path, force=True, type="mayaAscii", pr=True)
+    ar_qui.ar_displayMessage('success', 'brow export done.')
+    return True
 
 
-def browConnect(face_geo, face_geo_top_node, face_geo_main, namespacesName='XXX:'):
+def ar_browConnect(face_geo, face_geo_top_node, face_geo_main, namespacesName='XXX:'):
     """
-    import brow rig and attach with rig.
-    :param face_geo: string (geometry from imported file)
-    :param face_geo_top_node: string (geometry upper group.)
-    :param face_geo_main: geometry in main rig.
-    :param namespacesName: string
-    :return: browSetup
+    @ import brow rig and attach with rig.
+    Args:
+        face_geo (str): geometry from imported file.
+        face_geo_top_node (str): upper group of face geometry.
+        face_geo_main (str): face geometry of main rig.
+        namespacesName (str): namespace with colon.
+
+    Returns:
+            bool.
     """
     face_geo = pm.PyNode(namespacesName + face_geo)
     face_geo_top_node = pm.PyNode(namespacesName + face_geo_top_node)
@@ -249,16 +280,18 @@ def browConnect(face_geo, face_geo_top_node, face_geo_main, namespacesName='XXX:
     pm.parent(face_geo, namespacesName + 'Head_M', eyeBrowExtraSystem)
     pm.delete(face_geo_top_node)
     face_geo.rename('BrowRigBlendshape_geo')
-    blendshapeUtils.addBlendShape(face_geo, face_geo_main)
+    ar_blendshape.ar_addBlendShape(face_geo, face_geo_main)
     # transfer rivet.
     shapes = face_geo.listRelatives(s=True)
     for each in shapes:
         if not each.isIntermediate():
-            rivet.transferRivet(each, face_geo_main)
-    namespaces.removeNamespace(namespacesName[:-1])
+            ar_rivet.ar_transferRivet(each, face_geo_main)
+    ar_namespaces.ar_removeNamespace(namespacesName[:-1])
     # lock and parent eyeBrowExtraSystem.
     eyeBrowExtraSystem.v.set(0)
     eyeBrowExtraSystem.v.lock()
     if not pm.objExists('ExtraSystem'):
         pm.createNode('transform', n='ExtraSystem')
     pm.parent(eyeBrowExtraSystem, 'ExtraSystem')
+    ar_qui.ar_displayMessage('success', 'brow connection is done....')
+    return True

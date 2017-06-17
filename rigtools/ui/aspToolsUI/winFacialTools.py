@@ -2,27 +2,29 @@ import pymel.core as pm
 from PySide import QtGui
 import os
 
-from rigtools import maya_utils
+from rigtools.ui import ar_qui
 from rigtools.ui.aspToolsUI import ui_facial_tools
-from rigtools.ui import ui_fill
-from rigtools.aspTools import facial_tools
+from rigtools.ui import ar_uiFill
+from rigtools.aspTools import ar_asFacialTools
 
+reload(ar_qui)
 reload(ui_facial_tools)
-reload(facial_tools)
+reload(ar_qui)
+reload(ar_asFacialTools)
 
 setupPathRoot = r'\\stor\Data\python_packages\RIG_DATA'
 
 
 class FacialTools(QtGui.QMainWindow, ui_facial_tools.Ui_FacialToolsWindow):
-    def __init__(self, prnt=None):
-        super(FacialTools, self).__init__(prnt)
+    def __init__(self, parent=None):
+        super(FacialTools, self).__init__(parent)
         self.setupUi(self)
         self.connections()
 
     def connections(self):
-        self.faceGeo_btn.clicked.connect(lambda: ui_fill.fillLineEdit(self.faceGeo_LE))
-        self.faceGeoMainRig_btn.clicked.connect(lambda: ui_fill.fillLineEdit(self.faceGeoMainRig_LE))
-        self.faceGeoTopGroup_btn.clicked.connect(lambda: ui_fill.fillLineEdit(self.faceGeoTopGroup_LE))
+        self.faceGeo_btn.clicked.connect(lambda: ar_uiFill.ar_fillLineEdit(self.faceGeo_LE))
+        self.faceGeoMainRig_btn.clicked.connect(lambda: ar_uiFill.ar_fillLineEdit(self.faceGeoMainRig_LE))
+        self.faceGeoTopGroup_btn.clicked.connect(lambda: ar_uiFill.ar_fillLineEdit(self.faceGeoTopGroup_LE))
         self.refresh_btn.clicked.connect(self.refreshServerFiles)
         self.export_btn.clicked.connect(self.export)
         self.import_btn.clicked.connect(self.importFile)
@@ -62,8 +64,8 @@ class FacialTools(QtGui.QMainWindow, ui_facial_tools.Ui_FacialToolsWindow):
         project = self.project_comboBox.currentText()
         char = self.charName_LE.text()
         path = setupPathRoot + '\\' + project + '\\' + char + '\\Lip.ma'
-        lipExpClass = facial_tools.LipSetup(face_geo=face_geo, face_geo_top_node=face_geo_top_group,
-                                            namespaceName=namespaces, exportFile=True, path=path)
+        lipExpClass = ar_asFacialTools.Ar_LipSetup(face_geo=face_geo, face_geo_top_node=face_geo_top_group,
+                                                   namespaceName=namespaces, exportFile=True, path=path)
         lipExpClass.exportLipSetup()
 
     def exportEyeBrow(self):
@@ -71,7 +73,7 @@ class FacialTools(QtGui.QMainWindow, ui_facial_tools.Ui_FacialToolsWindow):
         project = self.project_comboBox.currentText()
         char = self.charName_LE.text()
         path = setupPathRoot + '\\' + project + '\\' + char + '\\EyeBrow.ma'
-        facial_tools.browExport(face_geo, exportFile=True, path=path)
+        ar_asFacialTools.ar_browExport(face_geo, exportFile=True, path=path)
 
     def importFile(self):
         namespaces = self.namespaces_LE.text()
@@ -90,13 +92,13 @@ class FacialTools(QtGui.QMainWindow, ui_facial_tools.Ui_FacialToolsWindow):
         namespaces = self.namespaces_LE.text()
         setup = self.expSetups_LW.currentItem().text()
         if setup == 'Lip.ma':
-            lipImpClass = facial_tools.LipSetup(face_geo=face_geo_main_rig, face_geo_top_node=face_geo_top_group,
-                                                namespaceName=namespaces)
+            lipImpClass = ar_asFacialTools.Ar_LipSetup(face_geo=face_geo_main_rig, face_geo_top_node=face_geo_top_group,
+                                                       namespaceName=namespaces)
             lipImpClass.connectLipSetup()
         else:
-            facial_tools.browConnect(face_geo, face_geo_top_group, face_geo_main_rig, namespacesName=namespaces)
+            ar_asFacialTools.ar_browConnect(face_geo, face_geo_top_group, face_geo_main_rig, namespacesName=namespaces)
 
 
 def main():
-    winClass = FacialTools(maya_utils.maya_main_window())
+    winClass = FacialTools(ar_qui.ar_mayaMainWindow())
     return winClass.show()

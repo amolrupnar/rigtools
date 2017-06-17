@@ -1,9 +1,14 @@
 import maya.cmds as cmds
 
-from rigtools import maya_utils
-from rigtools.utils import fk
-from rigtools.utils import constraint
-from rigtools.utils import joint
+from rigtools.ui import ar_qui
+from rigtools.utils import ar_fk
+from rigtools.utils import ar_constraint
+from rigtools.utils import ar_joint
+
+reload(ar_qui)
+reload(ar_fk)
+reload(ar_constraint)
+reload(ar_joint)
 
 
 # --------------------------------------------------------------
@@ -11,10 +16,14 @@ from rigtools.utils import joint
 # --------------------------------------------------------------
 def aimConstraintConn(passUI):
     """
-    aimConstraint UI connections.
-    :return: ui connection
+    @ aimConstraint UI connections.
+    Args:
+        passUI: 
+
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('aimConstraint'):
+    with ar_qui.ar_undoChunkOpen('aimConstraint'):
         aimAxis = str()
         objectUpAxis = str()
         aimValue = list()
@@ -45,15 +54,19 @@ def aimConstraintConn(passUI):
         if objectUpAxis == 'Z':
             objValue = [0, 0, 1]
         sel = cmds.ls(sl=True)
-        constraint.aimConstraint(aimValue, objValue, sel)
+        ar_constraint.ar_aimConstraint(aimValue, objValue, sel)
 
 
 def aimConstraintParentConn(passUI):
     """
-    aimConstraintParent UI connections.
-    :return: connection
+    @ aimConstraintParent UI connections.
+    Args:
+        passUI: 
+
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('aimConstraintParent'):
+    with ar_qui.ar_undoChunkOpen('aimConstraintParent'):
         aimAxis = str()
         objectUpAxis = str()
         aimValue = list()
@@ -84,51 +97,67 @@ def aimConstraintParentConn(passUI):
         if objectUpAxis == 'Z':
             objValue = [0, 0, 1]
         sel = cmds.ls(sl=True, type='joint')
-        constraint.aimConstraintParent(aimValue, objValue, sel)
+        ar_constraint.ar_aimConstraintParent(aimValue, objValue, sel)
 
 
 def multiPointConstraintConn(passUI):
     """
-    mutiPointConstraint UI connections.
-    :return: ui connection
+    @ multiPointConstraint UI connections.
+    Args:
+        passUI: 
+
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('multiPointConstraint'):
+    with ar_qui.ar_undoChunkOpen('multiPointConstraint'):
         sel = cmds.ls(sl=True)
         offset = passUI.maintainOffset_cb.isChecked()
-        constraint.multiPointConstraint(offset, sel)
+        ar_constraint.ar_multiPointConstraint(offset, sel)
 
 
 def multiOrientConstraintConn(passUI):
     """
-    multiOrientConstraint UI connections.
-    :return: ui connection
+    @ multiOrientConstraint UI connections.
+    Args:
+        passUI: 
+
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('multiOrientConstraint'):
+    with ar_qui.ar_undoChunkOpen('multiOrientConstraint'):
         sel = cmds.ls(sl=True)
         offset = passUI.maintainOffset_cb.isChecked()
-        constraint.multiOrientConstraint(offset, sel)
+        ar_constraint.ar_multiOrientConstraint(offset, sel)
 
 
 def multiParentConstraintConn(passUI):
     """
-    multiParentConstraint UI connections.
-    :return: ui connection
+    @ multiParentConstraint UI connections.
+    Args:
+        passUI: 
+
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('multiParentConstraint'):
+    with ar_qui.ar_undoChunkOpen('multiParentConstraint'):
         sel = cmds.ls(sl=True)
         offset = passUI.maintainOffset_cb.isChecked()
-        constraint.multiParentConstraint(offset, sel)
+        ar_constraint.ar_multiParentConstraint(offset, sel)
 
 
 # --------------------------------------------------------------
 # -------------------------- fk --------------------------------
 # --------------------------------------------------------------
-def fkchainConn(passUI):
+def fkChainConn(passUI):
     """
-    fkchain UI connections.
-    :return: ui connection
+    fkChain UI connections.
+    Args:
+        passUI: 
+
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('multiParentConstraint'):
+    with ar_qui.ar_undoChunkOpen('multiParentConstraint'):
         # get axis from ui
         axis = list()
         if passUI.ctlAxis_X_rb.isChecked():
@@ -137,7 +166,7 @@ def fkchainConn(passUI):
             axis = [0, 1, 0]
         if passUI.ctlAxis_Z_rb.isChecked():
             axis = [0, 0, 1]
-        fk.fkchain(axis)
+        ar_fk.ar_addFk(axis)
 
 
 # --------------------------------------------------------------
@@ -145,30 +174,36 @@ def fkchainConn(passUI):
 # --------------------------------------------------------------
 def jointsOnSelectionConn():
     """
-    jointsOnSelection UI connections.
-    :return: ui connection
+    @ jointsOnSelection UI connections.
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('jointsOnSelection'):
+    with ar_qui.ar_undoChunkOpen('jointsOnSelection'):
         sel = cmds.ls(sl=True)
-        joint.jointsOnSelection(sel)
+        ar_joint.ar_jointsOnSelection(sel)
 
 
 def noneOrientConn():
     """
-    noneOrient UI connections.
-    :return: ui connection
+    @ noneOrient UI connections.
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('noneOrient'):
+    with ar_qui.ar_undoChunkOpen('noneOrient'):
         sel = cmds.ls(sl=True)
-        joint.noneOrient(sel)
+        ar_joint.ar_noneOrient(sel)
 
 
 def orientChainConn(passUI):
     """
-    orientChain UI connections.
-    :return: ui connection
+    @ orientChain UI connections.
+    Args:
+        passUI: 
+
+    Returns:
+            none.
     """
-    with maya_utils.UndoChunkOpen('orient chain'):
+    with ar_qui.ar_undoChunkOpen('orient chain'):
         aimAxis = str()
         objectUpAxis = str()
         aimValue = list()
@@ -198,4 +233,4 @@ def orientChainConn(passUI):
         if objectUpAxis == 'Z':
             objValue = [0, 0, 1]
         sel = cmds.ls(sl=True, type='joint')
-        joint.orientChain(aimValue, objValue, sel)
+        ar_joint.ar_orientChain(aimValue, objValue, sel)

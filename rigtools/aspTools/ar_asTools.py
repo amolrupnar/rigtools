@@ -1,17 +1,24 @@
 from maya import cmds as cmds
 from pymel import core as pm
 
-from rigtools.utils import constraint
-from rigtools.utils import mesure
-from rigtools import maya_utils
+from rigtools.utils import ar_constraint
+from rigtools.utils import ar_mesure
+from rigtools.ui import ar_qui
+
+reload(ar_constraint)
+reload(ar_mesure)
+reload(ar_qui)
 
 
-def asIKCtlOriChange(joint, controller):
+def ar_asIKCtlOriChange(joint, controller):
     """
-    change ik controller orientation as local (getting joint orientation for reference)
-    :param joint: string
-    :param controller: string
-    :return: controller
+    @ change ik controller orientation as local (getting joint orientation for reference).
+    Args:
+        joint (str): this parameter is use only for orientation reference.
+        controller (str): ik controller.
+
+    Returns:
+            controller.
     """
     cmds.select(cl=True)
     tempLoc = cmds.spaceLocator()
@@ -32,36 +39,40 @@ def asIKCtlOriChange(joint, controller):
     # Add Hand Ik Extra Group Rotation value In Build Pose.
     GetAttrs = cmds.getAttr('buildPose.udAttr')
     qExtra = cmds.xform('IKExtra' + controller[2:], q=True, os=True, ro=True)
-    newAttrss = GetAttrs.replace('xform -os -t 0 0 0 -ro 0 0 0 %s;' % ('IKExtra' + controller[2:]),
-                                 'xform -os -t 0 0 0 -ro %f %f %f %s;' % (
-                                     qExtra[0], qExtra[1], qExtra[2], 'IKExtra' + controller[2:]))
-    cmds.setAttr('buildPose.udAttr', newAttrss, type="string")
+    newAttrs = GetAttrs.replace('xform -os -t 0 0 0 -ro 0 0 0 %s;' % ('IKExtra' + controller[2:]),
+                                'xform -os -t 0 0 0 -ro %f %f %f %s;' % (
+                                    qExtra[0], qExtra[1], qExtra[2], 'IKExtra' + controller[2:]))
+    cmds.setAttr('buildPose.udAttr', newAttrs, type="string")
     cmds.select(controller, r=True)
-    print ('{0} orientation changed... '.format(controller)),
+    ar_qui.ar_displayMessage('success', '{0} orientation changed... '.format(controller))
     return controller
 
 
-def changeDrawStyleOfExtraJoints():
+def ar_changeDrawStyleOfExtraJoints():
     """
-    none draw style of unused joints in asp rig tool.
-    :return: unusedJoints
+    @ none draw style of unused joints in asp rig tool.
+    Returns:
+            unusedJoints.
     """
-    with maya_utils.UndoChunkOpen('hide extra joints'):
+    with ar_qui.ar_undoChunkOpen('hide extra joints'):
         unusedJoints = cmds.ls('FKX*', 'IKX*', 'FKOffset*', type='joint')
         for each in unusedJoints:
             cmds.setAttr(each + '.drawStyle', 2)
         return unusedJoints
 
 
-def fkCtlInIkSpine(startCtl, endCtl, hipCtlGrps, ctlName='Fk_Spine', ctlNum=4):
+def ar_fkCtlInIkSpine(startCtl, endCtl, hipCtlGrps, ctlName='Fk_Spine', ctlNum=4):
     """
-    create fk controllers in advance skeleton ik spine setup.
-    :param startCtl: string
-    :param endCtl: string
-    :param hipCtlGrps: list
-    :param ctlName: string (keyable)
-    :param ctlNum: int (number of controllers which you want)
-    :return: fk controllers
+    @ create fk controllers in advance skeleton ik spine setup.
+    Args:
+        startCtl (str): bottom ik controller.
+        endCtl (str): top ik controller.
+        hipCtlGrps (list): list of hip offset group os controllers.
+        ctlName (string): controller name for fk spine.
+        ctlNum (int): number of controller to add.
+
+    Returns:
+            ctrls.
     """
     loc = []
     for i in range(ctlNum + 1):
@@ -69,14 +80,14 @@ def fkCtlInIkSpine(startCtl, endCtl, hipCtlGrps, ctlName='Fk_Spine', ctlNum=4):
         loc.append(newLoc)
 
     # get length between start ctl and end ctl.
-    pos = mesure.distanceCompareBetweenTwoObjects(startCtl, endCtl)
-    length = mesure.getLength(pos[0], pos[1], pos[2])
+    pos = ar_mesure.ar_distanceCompareBetweenTwoObjects(startCtl, endCtl)
+    length = ar_mesure.ar_getLength(pos[0], pos[1], pos[2])
     dividedLength = length / ctlNum
 
     for i in range(len(loc)):
         if i == 0:
             pm.delete(pm.parentConstraint(startCtl, loc[i]))
-            constraint.aimConstraint([1, 0, 0], [0, 0, 1], [endCtl, str(loc[i])], freeze=False)
+            ar_constraint.ar_aimConstraint([1, 0, 0], [0, 0, 1], [endCtl, str(loc[i])], freeze=False)
         else:
             setValX = dividedLength
             pm.parent(loc[i], loc[i - 1])
@@ -116,17 +127,21 @@ def fkCtlInIkSpine(startCtl, endCtl, hipCtlGrps, ctlName='Fk_Spine', ctlNum=4):
 
     pm.parentConstraint('HipSwinger_M', 'IKOffset' + startCtl[2:], mo=True)
     pm.delete(loc)
+    return ctrls
 
 
-def ikFootRollReOrient(ctl, ctlOffGrp, orientSample, rotateAxis='.rz', reverseConnections=False):
+def ar_ikFootRollReOrient(ctl, ctlOffGrp, orientSample, rotateAxis='.rz', reverseConnections=False):
     """
-    reorient ik roll controllers using re parenting.
-    :param ctl: string
-    :param ctlOffGrp: string
-    :param orientSample: string
-    :param rotateAxis: string (like'.rz')
-    :param reverseConnections: bool
-    :return: orientation.
+    @ reorient ik roll controllers using re parenting.
+    Args:
+        ctl (str): controller.
+        ctlOffGrp (str): controller offset group.
+        orientSample (str): orient sample.
+        rotateAxis (str): rotate axis with "." in prefix.
+        reverseConnections (bool): bool.
+
+    Returns:
+            bool.
     """
     ctl = pm.PyNode(ctl)
     ctlOffGrp = pm.PyNode(ctlOffGrp)
@@ -184,16 +199,20 @@ def ikFootRollReOrient(ctl, ctlOffGrp, orientSample, rotateAxis='.rz', reverseCo
     for each in offChild:
         each.r.set([0, 0, 0])
     pm.parent(filtChildren, ctl)
+    return True
 
 
-def ikFootLiftToeReOrient(ctlOffGrp, orientSample, rotateAxis='.rz', reverseConnections=False):
+def ar_ikFootLiftToeReOrient(ctlOffGrp, orientSample, rotateAxis='.rz', reverseConnections=False):
     """
-    re orient ikLiftToe controllers.
-    :param ctlOffGrp: string
-    :param orientSample: string
-    :param rotateAxis: string
-    :param reverseConnections: bool
-    :return: orientation.
+    @ re orient ikLiftToe controllers.
+    Args:
+        ctlOffGrp (str): controller offset group.
+        orientSample (str): orientation sample.
+        rotateAxis (str): rotation axis with "." in prefix.
+        reverseConnections: bool
+
+    Returns:
+            bool.
     """
     ctlOffGrp = pm.PyNode(ctlOffGrp)
     orientSample = pm.PyNode(orientSample)
@@ -212,8 +231,8 @@ def ikFootLiftToeReOrient(ctlOffGrp, orientSample, rotateAxis='.rz', reverseConn
     pm.connectAttr(connections, jtTemp + rotateAxis)
     pm.disconnectAttr(connections, ctlOffGrp.rx)
     # parent.
-    childrens = ctlOffGrp.getChildren()
-    pm.parent(childrens, jt)
+    child = ctlOffGrp.getChildren()
+    pm.parent(child, jt)
     jtNewName = str(ctlOffGrp)
     pm.delete(ctlOffGrp)
     jt.rename(jtNewName)

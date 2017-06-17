@@ -1,16 +1,23 @@
 from maya import cmds as cmds
 
+from rigtools.ui import ar_qui
 
-def jointsOnSelection(sel=None):
+reload(ar_qui)
+
+
+def ar_jointsOnSelection(sel=None):
     """
-    joints on selected items.
-    :param sel: list (joint)
-    :return: joint
+    @ joints on selected items.
+    Args:
+        sel (list): objects.
+
+    Returns:
+            allJoints.
     """
     if not sel:
         sel = cmds.ls(sl=True, fl=True)
     if not sel:
-        cmds.warning('Please select at least one object...')
+        ar_qui.ar_displayMessage('warning', 'Please select at least one object...')
         return False
     allJoints = list()
     for i in range(len(sel)):
@@ -23,37 +30,44 @@ def jointsOnSelection(sel=None):
     cmds.select(allJoints, r=True)
 
 
-def noneOrient(sel=None):
+def ar_noneOrient(sel=None):
     """
-    set zero orientation of all selected joints.
-    :param sel: list (joint)
-    :return: zero orientation.
+    @ set zero orientation of all selected joints.
+    Args:
+        sel (list): objects.
+
+    Returns:
+            bool.
     """
     if not sel:
         sel = cmds.ls(sl=True, type='joint')
     if not sel:
-        cmds.warning('no joints in selection...')
+        ar_qui.ar_displayMessage('warning', 'no joints in selection...')
         return False
     for i in range(len(sel)):
         cmds.setAttr(sel[i] + '.jointOrientX', 0)
         cmds.setAttr(sel[i] + '.jointOrientY', 0)
         cmds.setAttr(sel[i] + '.jointOrientZ', 0)
+    return True
 
 
-def orientChain(aimValue, objValue, sel=None):
+def ar_orientChain(aimValue, objValue, sel=None):
     """
-    select top joint and unparent it,
-    then rotate or orient it for object up axis,
-    then parent it again and execute script.
-    :param sel: list (joint)
-    :param aimValue: list ([1,0,0])
-    :param objValue: list ([1,0,0])
-    :return: orientation
+    @ select top joint and unparent it,
+    @ then rotate or orient it for object up axis,
+    @ then parent it again and execute script.
+    Args:
+        aimValue (list): aim value example [1,0,0].
+        objValue (list): obj value example [1,0,0].
+        sel (list): top joint of chain.
+
+    Returns:
+            bool.
     """
     if not sel:
         sel = cmds.ls(sl=True)
     if not sel:
-        cmds.warning('Please select at least on object...')
+        ar_qui.ar_displayMessage('warning', 'Please select at least on object...')
         return False
     for x in range(len(sel)):
         cmds.select(cl=True)
@@ -88,4 +102,6 @@ def orientChain(aimValue, objValue, sel=None):
                     cmds.setAttr(allJoints[i] + '.jointOrientZ', 0)
                     cmds.xform(allJoints[i], ro=[0, 0, 0])
         else:
-            raise RuntimeError('%s has no children...' % sel[x])
+            ar_qui.ar_displayMessage('error', '%s has no children...' % sel[x])
+            return False
+    return True

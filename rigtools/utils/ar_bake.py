@@ -1,14 +1,17 @@
 import pymel.core as pm
 
 
-def bakeIkJoints(ikHandles, startFrame=None, endFrame=None, particleShps=None):
+def ar_bakeIkJoints(ikHandles, startFrame=None, endFrame=None, particleShps=None):
     """
-    bake ik joints (query ik handle joint list)
-    :param ikHandles: list
-    :param startFrame: float
-    :param endFrame: float
-    :param particleShps: list
-    :return: joint bake.
+    @ bake ik joints (using query ik handle joint list).
+    Args:
+        ikHandles (list): list of ik handle which will bake.
+        startFrame (float): start frame (if not provide query from timeline).
+        endFrame (float): end frame (if not provide query from timeline).
+        particleShps (list): particle list if using particle on curve.
+
+    Returns:
+            bool.
     """
     # convert arguments into PyNode.
     ikHandles = [pm.PyNode(x) for x in ikHandles]
@@ -40,14 +43,18 @@ def bakeIkJoints(ikHandles, startFrame=None, endFrame=None, particleShps=None):
     # apply default values.
     pm.playbackOptions(min=startFrame, ast=astFrame)
     pm.currentTime(crtFrame, e=True)
+    return True
 
 
-def unBakeIkJoints(ikHandles, particleShps=None):
+def ar_unBakeIkJoints(ikHandles, particleShps=None):
     """
-    unbake ik joints (query ik handle joint list)
-    :param ikHandles: list
-    :param particleShps: list
-    :return: unbake joints.
+    @ unbake ik joints (query ik handle joint list)
+    Args:
+        ikHandles (list): ik handles which has to be unbake.
+        particleShps: particle shapes which has to be on dynamics after the unbake.
+
+    Returns:
+            bool.
     """
     # convert arguments into PyNode.
     ikHandles = [pm.PyNode(x) for x in ikHandles]
@@ -61,15 +68,20 @@ def unBakeIkJoints(ikHandles, particleShps=None):
     [pm.listConnections(x, type='ikHandle')[0].ikBlend.set(1) for x in joints]
     if particleShps:
         [x.isDynamic.set(1) for x in particleShps]
+    return True
 
 
-def bakeCurveAnim(curve, startTime, endTime):
+def ar_bakeCurveAnim(curve, startTime, endTime):
     """
-    bake curve cv animation.
-    :param curve: list (list of curves)
-    :param startTime: float
-    :param endTime: float
-    :return: animation bake.
+    @ bake curve cv animation.
+    Args:
+        curve (list): list of curves.
+        startTime (float): start time.
+        endTime (float): end time.
+
+    Returns:
+            bool.
     """
     pm.bakeResults(curve, sm=True, t=str(startTime) + ':' + str(endTime), sb=1, dic=0, pok=0, sac=False, cp=True,
                    s=False)
+    return True

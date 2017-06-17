@@ -1,16 +1,18 @@
 import pymel.core as pm
 from PySide import QtGui
-from rigtools.ui.aspToolsUI import ui_hairBake
-from rigtools import maya_utils
-from rigtools.utils import bake
 
+from rigtools.ui import ar_qui
+from rigtools.ui.aspToolsUI import ui_hairBake
+from rigtools.utils import ar_bake
+
+reload(ar_qui)
 reload(ui_hairBake)
-reload(bake)
+reload(ar_bake)
 
 
 class HairBakeUnbake(QtGui.QMainWindow, ui_hairBake.Ui_hairBakeWindow):
-    def __init__(self, prnt):
-        super(HairBakeUnbake, self).__init__(prnt)
+    def __init__(self, parent):
+        super(HairBakeUnbake, self).__init__(parent)
         self.setupUi(self)
         self.connections()
 
@@ -65,7 +67,7 @@ class HairBakeUnbake(QtGui.QMainWindow, ui_hairBake.Ui_hairBakeWindow):
             bakeParticleList.extend([particleShape])
         if not bakeIkList:
             raise RuntimeError('No Selection found in hair bake window,')
-        bake.bakeIkJoints(bakeIkList, particleShps=bakeParticleList)
+        ar_bake.ar_bakeIkJoints(bakeIkList, particleShps=bakeParticleList)
         self.checkBake()
 
     def unbakeHair(self):
@@ -81,10 +83,10 @@ class HairBakeUnbake(QtGui.QMainWindow, ui_hairBake.Ui_hairBakeWindow):
             unBakeParticleList.extend([particleShape])
         if not unBakeIkList:
             raise RuntimeError('No Selection found in hair bake window,')
-        bake.unBakeIkJoints(unBakeIkList, particleShps=unBakeParticleList)
+        ar_bake.ar_unBakeIkJoints(unBakeIkList, particleShps=unBakeParticleList)
         self.checkBake()
 
 
 def main():
-    winClass = HairBakeUnbake(maya_utils.maya_main_window())
+    winClass = HairBakeUnbake(ar_qui.ar_mayaMainWindow())
     return winClass.show()

@@ -1,23 +1,32 @@
 import pymel.core as pm
 
+from rigtools.ui import ar_qui
 
-def addWireTool(curve, mesh, orientSample=None):
+reload(ar_qui)
+
+
+def ar_addWireTool(curve, mesh, orientSample=None):
     """
-    add wire from curve and add controller on each cv.
-    :param curve: string
-    :param mesh: string
-    :param orientSample: string
-    :return: Wire Tool.
+    @ add wire from curve and add controller on each cv.
+    Args:
+        curve (str): wire curve.
+        mesh (str): geometry.
+        orientSample (str): sub controller orient aim point.
+
+    Returns:
+            bool.
     """
     # convert parameters into PyNode.
     curve = pm.PyNode(curve)
     mesh = pm.PyNode(mesh)
     curveUpperGroup = curve.getParent()
     if not curveUpperGroup:
-        raise RuntimeError('Please create upperGroup on the "%s".' % curve)
+        ar_qui.ar_displayMessage('error', 'Please create upperGroup on the "%s".' % curve)
+        return False
     curveShape = curve.getShape()
     if not curveShape:
-        raise RuntimeError('"%s" has no shape.' % curve)
+        ar_qui.ar_displayMessage('error', '"%s" has no shape.' % curve)
+        return False
 
     # press tab from down line.
     cvs = pm.ls(curve + '.cv[*]', fl=True)
@@ -125,3 +134,5 @@ def addWireTool(curve, mesh, orientSample=None):
     # connect wire attributes on main controller.
     mainCtrl.envelope.connect(wireDeformer[0].envelope, f=True)
     mainCtrl.dropoffDistance.connect(wireDeformer[0].dropoffDistance[0], f=True)
+    ar_qui.ar_displayMessage('success', 'wire tool added successfully.')
+    return True
