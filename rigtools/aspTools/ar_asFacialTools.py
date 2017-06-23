@@ -169,7 +169,7 @@ class Ar_LipSetup(object):
                     self.face_geo.worldMesh[0].connect(crvFrmMshEdg.inputMesh, f=True)
         # add blendshape.
         for each in self.lip_geos:
-            ar_blendshape.ar_addBlendShape(each, self.face_geo)
+            ar_blendshape.ar_addBlendShape(each, self.face_geo, value=1)
 
 
 def ar_browExport(face_geo, exportFile=False, path=None):
@@ -280,7 +280,7 @@ def ar_browConnect(face_geo, face_geo_top_node, face_geo_main, namespacesName='X
     pm.parent(face_geo, namespacesName + 'Head_M', eyeBrowExtraSystem)
     pm.delete(face_geo_top_node)
     face_geo.rename('BrowRigBlendshape_geo')
-    ar_blendshape.ar_addBlendShape(face_geo, face_geo_main)
+    ar_blendshape.ar_addBlendShape(face_geo, face_geo_main, value=1)
     # transfer rivet.
     shapes = face_geo.listRelatives(s=True)
     for each in shapes:
