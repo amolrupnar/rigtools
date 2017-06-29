@@ -1,8 +1,10 @@
 import pymel.core as pm
 
 from rigtools.ui import ar_qui
+from rigtools.utils import ar_find
 
 reload(ar_qui)
+reload(ar_find)
 
 
 def ar_addBlendShape(source, target, value=0):
@@ -69,3 +71,35 @@ def ar_mirrorShapeUsingWrap(baseGeo, editedGeo, newShapeName='newShape', axis='s
     pm.delete(str(tempBase) + 'Base')
     pm.delete(tempBase)
     return newShape
+
+
+def ar_bakeShapeUsingWrap(baseGeo, newGeo):
+    """
+    @ bake blendshape using wrap deformer.
+    Args:
+        baseGeo (str): base geometry transform.
+        newGeo (str): edited shape transform.
+
+    Returns:
+            newShape.
+    """
+    oldGeo = pm.PyNode(baseGeo)
+    newGeo = pm.PyNode(newGeo)
+    # find blendshape node.
+    bShpNode = ar_find.ar_findInputNodeType(oldGeo, 'blendShape')[0]
+    bShpNode = pm.PyNode(bShpNode)
+    # set all weight at zero.
+    for i in range(bShpNode.getWeightCount()):
+        bShpNode.setWeight(i, 0)
+    # create targets.
+    for each in pm.listAttr(bShpNode + '*.w', k=True, m=True):
+        # duplicate new geometry.
+        dupNewGeo = pm.duplicate(newGeo, rr=True, n=each)[0]
+        pm.select(dupNewGeo, oldGeo)
+        pm.runtime.CreateWrap()
+        # on blendShape.
+        pm.setAttr(bShpNode + '.' + each, 1)
+        pm.runtime.DeleteHistory(dupNewGeo)
+        pm.delete(oldGeo + 'Base')
+        pm.setAttr(bShpNode + '.' + each, 0)
+        ar_qui.ar_displayMessage('success', '% shape created' % each)
