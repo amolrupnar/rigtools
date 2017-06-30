@@ -166,7 +166,8 @@ class Ar_LipSetup(object):
             for hist in allHist:
                 if hist.nodeType() == 'pointOnCurveInfo':
                     crvFrmMshEdg = hist.inputCurve.connections()[0].create.connections()[0]
-                    self.face_geo.worldMesh[0].connect(crvFrmMshEdg.inputMesh, f=True)
+                    inputShape = self.face_geo.getShapes(ni=True)[0]
+                    inputShape.worldMesh[0].connect(crvFrmMshEdg.inputMesh, f=True)
         # add blendshape.
         for each in self.lip_geos:
             ar_blendshape.ar_addBlendShape(each, self.face_geo, value=1)
