@@ -1,4 +1,4 @@
-from PySide import QtGui
+from PySide2 import QtWidgets
 
 from rigtools.ui import ar_qui
 from rigtools.ui.utilsUI import ui_wireTool
@@ -13,7 +13,7 @@ reload(ar_uiFill)
 reload(ar_deformer)
 
 
-class WireTool(QtGui.QMainWindow, ui_wireTool.Ui_wireToolWindow):
+class WireTool(QtWidgets.QMainWindow, ui_wireTool.Ui_wireToolWindow):
     def __init__(self, parent):
         super(WireTool, self).__init__(parent)
         self.setupUi(self)

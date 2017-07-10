@@ -1,5 +1,5 @@
 import pymel.core as pm
-from PySide import QtGui
+from PySide2 import QtWidgets, QtGui
 
 from rigtools.ui import ar_qui
 from rigtools.ui.aspToolsUI import ui_hairBake
@@ -10,7 +10,7 @@ reload(ui_hairBake)
 reload(ar_bake)
 
 
-class HairBakeUnbake(QtGui.QMainWindow, ui_hairBake.Ui_hairBakeWindow):
+class HairBakeUnbake(QtWidgets.QMainWindow, ui_hairBake.Ui_hairBakeWindow):
     def __init__(self, parent):
         super(HairBakeUnbake, self).__init__(parent)
         self.setupUi(self)

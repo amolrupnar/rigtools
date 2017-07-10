@@ -1,5 +1,4 @@
-from maya.app.general.mayaMixin import MayaQWidgetDockableMixin
-from PySide import QtGui
+from PySide2 import QtWidgets
 
 from rigtools.ui import ar_qui
 from rigtools.ext import ar_gen
@@ -28,7 +27,7 @@ reload(ar_asTools)
 reload(winShiftInpOut)
 
 
-class RigToolsUIConn(MayaQWidgetDockableMixin, QtGui.QMainWindow, rigTools_ui.Ui_mainWindow):
+class RigToolsUIConn(QtWidgets.QMainWindow, rigTools_ui.Ui_rtMainWindow):
     def __init__(self, parent=None):
         super(RigToolsUIConn, self).__init__(parent)
         self.setupUi(self)
@@ -60,4 +59,4 @@ class RigToolsUIConn(MayaQWidgetDockableMixin, QtGui.QMainWindow, rigTools_ui.Ui
 
 def main():
     winClass = RigToolsUIConn(ar_qui.ar_mayaMainWindow())
-    return winClass.show(dockable=True)
+    return winClass.show()

@@ -1,4 +1,4 @@
-from PySide import QtGui
+from PySide2 import QtWidgets
 
 from rigtools.ui import ar_qui
 from rigtools.ui.aspToolsUI import ui_aspIKOriChange
@@ -11,7 +11,7 @@ reload(ar_uiFill)
 reload(ar_asTools)
 
 
-class IkOrientUIConn(QtGui.QMainWindow, ui_aspIKOriChange.Ui_aspIKOriChangeWindow):
+class IkOrientUIConn(QtWidgets.QMainWindow, ui_aspIKOriChange.Ui_aspIKOriChangeWindow):
     def __init__(self, parent=None):
         super(IkOrientUIConn, self).__init__(parent)
         self.setupUi(self)

@@ -1,5 +1,5 @@
 import pymel.core as pm
-from PySide import QtGui
+from PySide2 import QtWidgets
 import os
 
 from rigtools.ui import ar_qui
@@ -15,7 +15,7 @@ reload(ar_asFacialTools)
 setupPathRoot = r'\\stor\Data\python_packages\RIG_DATA'
 
 
-class FacialTools(QtGui.QMainWindow, ui_facial_tools.Ui_FacialToolsWindow):
+class FacialTools(QtWidgets.QMainWindow, ui_facial_tools.Ui_FacialToolsWindow):
     def __init__(self, parent=None):
         super(FacialTools, self).__init__(parent)
         self.setupUi(self)

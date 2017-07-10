@@ -1,4 +1,4 @@
-from PySide import QtGui
+from PySide2 import QtWidgets
 
 from rigtools.ui import ar_qui
 from rigtools.ui.aspToolsUI import ui_aspFingerAttributes
@@ -7,7 +7,7 @@ from rigtools.ui import ar_uiFill
 reload(ui_aspFingerAttributes)
 
 
-class FingerAttributeConn(QtGui.QMainWindow, ui_aspFingerAttributes.Ui_FingerAttributeWindow):
+class FingerAttributeConn(QtWidgets.QMainWindow, ui_aspFingerAttributes.Ui_FingerAttributeWindow):
     def __init__(self, parent=None):
         super(FingerAttributeConn, self).__init__(parent)
         self.setupUi(self)
