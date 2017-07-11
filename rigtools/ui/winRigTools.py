@@ -34,6 +34,9 @@ class RigToolsUIConn(QtWidgets.QMainWindow, rigTools_ui.Ui_rtMainWindow):
         self.connections()
 
     def connections(self):
+        self.matchPosition_btn.clicked.connect(extConn.matchPositionConn)
+        self.matchOrientation_btn.clicked.connect(extConn.matchOrientationConn)
+        self.matchBoth_btn.clicked.connect(extConn.matchPositionOrientation)
         self.jointSel_btn.clicked.connect(utilsConn.jointsOnSelectionConn)
         self.parent_btn.clicked.connect(extConn.parentHirarchyConn)
         self.Zero_Out_btn.clicked.connect(extConn.zeroOutConn)

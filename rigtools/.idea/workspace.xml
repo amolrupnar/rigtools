@@ -5,27 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f560da5-ec41-49ae-8890-318a1605bf90" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/rigtools.iml" afterPath="$PROJECT_DIR$/.idea/rigtools.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/ar_qui.py" afterPath="$PROJECT_DIR$/ui/ar_qui.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/ar_gen.py" afterPath="$PROJECT_DIR$/ext/ar_gen.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/aspToolsUI/ui_aspFingerAttributes.py" afterPath="$PROJECT_DIR$/ui/aspToolsUI/ui_aspFingerAttributes.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/aspToolsUI/ui_aspIKOriChange.py" afterPath="$PROJECT_DIR$/ui/aspToolsUI/ui_aspIKOriChange.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/aspToolsUI/ui_aspfkInIkSpine.py" afterPath="$PROJECT_DIR$/ui/aspToolsUI/ui_aspfkInIkSpine.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/aspToolsUI/ui_facial_tools.py" afterPath="$PROJECT_DIR$/ui/aspToolsUI/ui_facial_tools.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/aspToolsUI/ui_hairBake.py" afterPath="$PROJECT_DIR$/ui/aspToolsUI/ui_hairBake.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/aspToolsUI/winFacialTools.py" afterPath="$PROJECT_DIR$/ui/aspToolsUI/winFacialTools.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/aspToolsUI/winFingerAttributes.py" afterPath="$PROJECT_DIR$/ui/aspToolsUI/winFingerAttributes.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/aspToolsUI/winFkInIkSpine.py" afterPath="$PROJECT_DIR$/ui/aspToolsUI/winFkInIkSpine.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/aspToolsUI/winHairBake.py" afterPath="$PROJECT_DIR$/ui/aspToolsUI/winHairBake.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/aspToolsUI/winIkOriChange.py" afterPath="$PROJECT_DIR$/ui/aspToolsUI/winIkOriChange.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/extUI/ui_shiftInpOut.py" afterPath="$PROJECT_DIR$/ui/extUI/ui_shiftInpOut.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/extUI/ui_skinCopy.py" afterPath="$PROJECT_DIR$/ui/extUI/ui_skinCopy.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/extUI/winShiftInpOut.py" afterPath="$PROJECT_DIR$/ui/extUI/winShiftInpOut.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/extUI/winSkinCopy.py" afterPath="$PROJECT_DIR$/ui/extUI/winSkinCopy.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/extUI/extConn.py" afterPath="$PROJECT_DIR$/ui/extUI/extConn.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/rigTools_ui.py" afterPath="$PROJECT_DIR$/ui/rigTools_ui.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/utilsUI/ui_wireTool.py" afterPath="$PROJECT_DIR$/ui/utilsUI/ui_wireTool.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/utilsUI/winWireTool.py" afterPath="$PROJECT_DIR$/ui/utilsUI/winWireTool.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/rigTools_ui.ui" afterPath="$PROJECT_DIR$/ui/rigTools_ui.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui/winRigTools.py" afterPath="$PROJECT_DIR$/ui/winRigTools.py" />
     </list>
     <ignored path="rigtools.iws" />
@@ -85,7 +70,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/utils/mesure.py" />
         <option value="$PROJECT_DIR$/utils/namespaces.py" />
         <option value="$PROJECT_DIR$/utils/rivet.py" />
         <option value="$PROJECT_DIR$/utils/stretchSquash.py" />
@@ -110,15 +94,12 @@
         <option value="$PROJECT_DIR$/utils/ar_rivet.py" />
         <option value="$PROJECT_DIR$/utils/ar_wireTool.py" />
         <option value="$PROJECT_DIR$/ui/ui_fill.py" />
-        <option value="$PROJECT_DIR$/ui/extUI/extConn.py" />
         <option value="$PROJECT_DIR$/ui/utilsUI/utilsConn.py" />
-        <option value="$PROJECT_DIR$/ext/ar_gen.py" />
         <option value="$PROJECT_DIR$/utils/ar_find.py" />
         <option value="$PROJECT_DIR$/utils/ar_blendshape.py" />
         <option value="$PROJECT_DIR$/utils/__init__.py" />
         <option value="$PROJECT_DIR$/aspTools/ar_asFacialTools.py" />
         <option value="$PROJECT_DIR$/ui/ar_qui.py" />
-        <option value="$PROJECT_DIR$/ui/aspToolsUI/ui_aspFingerAttributes.py" />
         <option value="$PROJECT_DIR$/ui/aspToolsUI/ui_aspfkInIkSpine.py" />
         <option value="$PROJECT_DIR$/ui/aspToolsUI/ui_aspIKOriChange.py" />
         <option value="$PROJECT_DIR$/ui/aspToolsUI/ui_facial_tools.py" />
@@ -135,7 +116,11 @@
         <option value="$PROJECT_DIR$/ui/extUI/ui_skinCopy.py" />
         <option value="$PROJECT_DIR$/ui/utilsUI/ui_wireTool.py" />
         <option value="$PROJECT_DIR$/ui/rigTools_ui.py" />
+        <option value="$PROJECT_DIR$/__init__.py" />
+        <option value="$PROJECT_DIR$/ext/ar_gen.py" />
         <option value="$PROJECT_DIR$/ui/winRigTools.py" />
+        <option value="$PROJECT_DIR$/ui/aspToolsUI/ui_aspFingerAttributes.py" />
+        <option value="$PROJECT_DIR$/ui/extUI/extConn.py" />
       </list>
     </option>
   </component>
@@ -177,7 +162,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -207,11 +191,12 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="C:/Python27/Lib/site-packages" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -232,25 +217,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ar_skin">
-    <configuration default="false" name="winWireTool" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ui/utilsUI" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="rigtools" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ui/utilsUI/winWireTool.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.__init__">
     <configuration default="false" name="meshUtils" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -318,6 +285,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="rigtools" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ext/ar_skin.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="rigtools" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/__init__.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -420,19 +405,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.winWireTool" />
-      <item index="1" class="java.lang.String" itemvalue="Python.meshUtils" />
-      <item index="2" class="java.lang.String" itemvalue="Python.mui_qt" />
-      <item index="3" class="java.lang.String" itemvalue="Python.test" />
-      <item index="4" class="java.lang.String" itemvalue="Python.ar_skin" />
+      <item index="0" class="java.lang.String" itemvalue="Python.meshUtils" />
+      <item index="1" class="java.lang.String" itemvalue="Python.mui_qt" />
+      <item index="2" class="java.lang.String" itemvalue="Python.test" />
+      <item index="3" class="java.lang.String" itemvalue="Python.ar_skin" />
+      <item index="4" class="java.lang.String" itemvalue="Python.__init__" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.ar_skin" />
-        <item index="1" class="java.lang.String" itemvalue="Python.test" />
-        <item index="2" class="java.lang.String" itemvalue="Python.mui_qt" />
-        <item index="3" class="java.lang.String" itemvalue="Python.meshUtils" />
-        <item index="4" class="java.lang.String" itemvalue="Python.winWireTool" />
+        <item index="0" class="java.lang.String" itemvalue="Python.__init__" />
+        <item index="1" class="java.lang.String" itemvalue="Python.ar_skin" />
+        <item index="2" class="java.lang.String" itemvalue="Python.test" />
+        <item index="3" class="java.lang.String" itemvalue="Python.mui_qt" />
+        <item index="4" class="java.lang.String" itemvalue="Python.meshUtils" />
       </list>
     </recent_temporary>
     <configuration default="true" type="tests" factoryName="Attests">
@@ -476,7 +461,14 @@
       <option name="project" value="LOCAL" />
       <updated>1498741302354</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="PySide2 Changes Added.">
+      <created>1499688336352</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1499688336352</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -499,8 +491,8 @@
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2109375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907662" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21611002" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907662" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4318902" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3284055" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907662" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907662" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -535,7 +527,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add in blendshape and find Add" />
-    <option name="LAST_COMMIT_MESSAGE" value="add in blendshape and find Add" />
+    <MESSAGE value="PySide2 Changes Added." />
+    <option name="LAST_COMMIT_MESSAGE" value="PySide2 Changes Added." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -658,13 +651,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ext/ar_gen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-697">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ext/ar_skin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -721,13 +707,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-888616484/maya/OpenMayaUI/MQtUtil.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="307">
@@ -735,29 +714,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ui/extUI/extConn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ui/aspToolsUI/ui_aspFingerAttributes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1411">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ui/aspToolsUI/ui_aspfkInIkSpine.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-617">
           <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -765,7 +725,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -773,7 +732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3383">
           <caret line="199" column="0" lean-forward="true" selection-start-line="199" selection-start-column="0" selection-end-line="199" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -781,7 +739,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-277">
           <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -789,9 +746,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -799,9 +753,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -809,9 +760,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -819,9 +767,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -829,9 +774,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -839,7 +781,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1457">
           <caret line="145" column="0" lean-forward="true" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -847,7 +788,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="577">
           <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -855,9 +795,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -865,9 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -875,7 +809,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1610">
           <caret line="177" column="0" lean-forward="true" selection-start-line="177" selection-start-column="0" selection-end-line="177" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -883,7 +816,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -891,19 +823,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ui/ar_qui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -911,23 +830,62 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="403">
           <caret line="39" column="7" lean-forward="true" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ui/rigTools_ui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ui/ar_qui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ui/aspToolsUI/ui_aspFingerAttributes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-410">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/ar_gen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="107" column="12" lean-forward="true" selection-start-line="107" selection-start-column="12" selection-end-line="107" selection-end-column="12" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ui/rigTools_ui.py">
+    <entry file="file://$PROJECT_DIR$/ui/extUI/extConn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="279" column="0" lean-forward="true" selection-start-line="279" selection-start-column="0" selection-end-line="279" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="153">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ui/winRigTools.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
+        <state relative-caret-position="403">
           <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />

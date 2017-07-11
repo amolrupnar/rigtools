@@ -130,3 +130,57 @@ def ar_zeroOut(sel=None):
                     cmds.parent(grp, par[0])
             groups.append(grp)
         return groups
+
+
+def ar_matchPosition(sel=None):
+    """
+    @ match position tool.
+    Args:
+        sel (list): object list.
+
+    Returns:
+            bool.
+    """
+    if not sel:
+        sel = pm.ls(sl=True)
+    if len(sel) == 2:
+        pm.delete(pm.pointConstraint(sel[1], sel[0]))
+    else:
+        raise RuntimeError('Please select two objects only.')
+    return True
+
+
+def ar_matchOrientation(sel=None):
+    """
+    @ match orientation tool.
+    Args:
+        sel (list): object list.
+
+    Returns:
+            bool.
+    """
+    if not sel:
+        sel = pm.ls(sl=True)
+    if len(sel) == 2:
+        pm.delete(pm.orientConstraint(sel[1], sel[0]))
+    else:
+        raise RuntimeError('Please select two objects only.')
+    return True
+
+
+def ar_matchPositionOrientation(sel=None):
+    """
+    @ match position and orientation tool.
+    Args:
+        sel (list): object list.
+
+    Returns:
+            bool.
+    """
+    if not sel:
+        sel = pm.ls(sl=True)
+    if len(sel) == 2:
+        pm.delete(pm.parentConstraint(sel[1], sel[0]))
+    else:
+        raise RuntimeError('Please select two objects only.')
+    return True

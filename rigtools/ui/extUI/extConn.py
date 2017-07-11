@@ -88,3 +88,33 @@ def shiftInputOutputConnectionsConn():
         destInp = cmds.textField('destInp_LE', q=True, tx=True)
         destOut = cmds.textField('destOut_LE', q=True, tx=True)
         ar_skin.ar_shiftInputOutputConnections(sourceInp, sourceOut, destInp, destOut)
+
+
+def matchPositionConn():
+    """
+    @ match position connections.
+    Returns:
+            none.
+    """
+    with ar_qui.ar_undoChunkOpen('Match Position'):
+        ar_gen.ar_matchPosition()
+
+
+def matchOrientationConn():
+    """
+    @ match orientation connections.
+    Returns:
+            none.
+    """
+    with ar_qui.ar_undoChunkOpen('Match Orientation'):
+        ar_gen.ar_matchOrientation()
+
+
+def matchPositionOrientation():
+    """
+    @ match orientation and position connections.
+    Returns:
+            none.
+    """
+    with ar_qui.ar_undoChunkOpen('Match Position and Orientation'):
+        ar_gen.ar_matchPositionOrientation()
