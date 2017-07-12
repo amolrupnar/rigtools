@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>421</width>
-    <height>889</height>
+    <width>420</width>
+    <height>910</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,15 +25,15 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>401</width>
-         <height>848</height>
+         <width>400</width>
+         <height>869</height>
         </rect>
        </property>
        <widget class="QGroupBox" name="joint_groupBox">
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>210</y>
+          <y>240</y>
           <width>381</width>
           <height>271</height>
          </rect>
@@ -65,9 +65,9 @@
             <widget class="QWidget" name="layoutWidget">
              <property name="geometry">
               <rect>
-               <x>10</x>
+               <x>5</x>
                <y>15</y>
-               <width>341</width>
+               <width>351</width>
                <height>161</height>
               </rect>
              </property>
@@ -77,6 +77,15 @@
                 <property name="spacing">
                  <number>6</number>
                 </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
                 <item>
                  <widget class="QLabel" name="label">
                   <property name="sizePolicy">
@@ -84,6 +93,12 @@
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>12</height>
+                   </size>
                   </property>
                   <property name="text">
                    <string>Aim Axis</string>
@@ -101,6 +116,12 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>12</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string>Object Up Axis</string>
                   </property>
@@ -115,6 +136,18 @@
                <layout class="QHBoxLayout" name="horizontalLayout_3">
                 <item>
                  <widget class="QFrame" name="frame">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>40</height>
+                   </size>
+                  </property>
                   <property name="frameShape">
                    <enum>QFrame::StyledPanel</enum>
                   </property>
@@ -167,6 +200,18 @@
                 </item>
                 <item>
                  <widget class="Line" name="line">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>23</height>
+                   </size>
+                  </property>
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -174,6 +219,18 @@
                 </item>
                 <item>
                  <widget class="QFrame" name="frame_2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>40</height>
+                   </size>
+                  </property>
                   <property name="frameShape">
                    <enum>QFrame::StyledPanel</enum>
                   </property>
@@ -231,21 +288,21 @@
                 <item>
                  <widget class="QPushButton" name="orient_chain_btn">
                   <property name="text">
-                   <string>orient_chain</string>
+                   <string>Orient Chain</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QPushButton" name="aim_constraint_btn">
                   <property name="text">
-                   <string>aim_constraint</string>
+                   <string>Aim Constraint</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QPushButton" name="aim_constraint_parent_btn">
                   <property name="text">
-                   <string>aim_constraint_parent</string>
+                   <string>Aim Constraint Parent</string>
                   </property>
                  </widget>
                 </item>
@@ -284,13 +341,19 @@
               <rect>
                <x>10</x>
                <y>20</y>
-               <width>342</width>
+               <width>341</width>
                <height>25</height>
               </rect>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_5">
               <item>
                <widget class="QCheckBox" name="maintainOffset_cb">
+                <property name="minimumSize">
+                 <size>
+                  <width>107</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="text">
                  <string>Maintain Offset</string>
                 </property>
@@ -302,21 +365,21 @@
               <item>
                <widget class="QPushButton" name="point_constraint_btn">
                 <property name="text">
-                 <string>point const</string>
+                 <string>Point Const</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="orient_constraint_btn">
                 <property name="text">
-                 <string>orient const</string>
+                 <string>Orient Const</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="parent_constraint_btn">
                 <property name="text">
-                 <string>parent const</string>
+                 <string>Parent Const</string>
                 </property>
                </widget>
               </item>
@@ -331,7 +394,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>480</y>
+          <y>510</y>
           <width>381</width>
           <height>101</height>
          </rect>
@@ -362,7 +425,7 @@
           <item row="2" column="2">
            <widget class="QPushButton" name="FK_Proxy_btn">
             <property name="text">
-             <string>FK_Proxy</string>
+             <string>FK Proxy</string>
             </property>
            </widget>
           </item>
@@ -434,7 +497,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>580</y>
+          <y>610</y>
           <width>381</width>
           <height>51</height>
          </rect>
@@ -455,7 +518,7 @@
           <item>
            <widget class="QPushButton" name="select_Influence_object_btn">
             <property name="text">
-             <string>select_Influence_object</string>
+             <string>Select Influence Object</string>
             </property>
            </widget>
           </item>
@@ -480,7 +543,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>630</y>
+          <y>660</y>
           <width>381</width>
           <height>131</height>
          </rect>
@@ -540,7 +603,7 @@
           <item>
            <widget class="QPushButton" name="IK_Orient_btn">
             <property name="text">
-             <string>IK_Orient</string>
+             <string>IK Orient</string>
             </property>
            </widget>
           </item>
@@ -554,14 +617,14 @@
           <item>
            <widget class="QPushButton" name="FK_in_IKSpine_btn">
             <property name="text">
-             <string>FK_in_IKSpine</string>
+             <string>FK in IKSpine</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="Hide_Extra_Joints_btn">
             <property name="text">
-             <string>Hide_Extra_Joints</string>
+             <string>Hide Extra Joints</string>
             </property>
            </widget>
           </item>
@@ -572,7 +635,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>770</y>
+          <y>800</y>
           <width>381</width>
           <height>61</height>
          </rect>
@@ -600,7 +663,7 @@
           <x>10</x>
           <y>120</y>
           <width>381</width>
-          <height>91</height>
+          <height>111</height>
          </rect>
         </property>
         <property name="title">
@@ -609,90 +672,141 @@
         <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
-           <x>11</x>
-           <y>20</y>
+           <x>10</x>
+           <y>80</y>
            <width>361</width>
-           <height>58</height>
+           <height>25</height>
           </rect>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_10">
-            <item>
-             <widget class="QPushButton" name="circleCtl_btn">
-              <property name="text">
-               <string>Circle</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="cubeCtl_btn">
-              <property name="text">
-               <string>Cube</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="sphereCtl_btn">
-              <property name="text">
-               <string>Sphere</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="diamondCtl_btn">
-              <property name="text">
-               <string>Diamond</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QPushButton" name="noneColor_btn">
+            <property name="text">
+             <string>none</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QPushButton" name="noneColor_btn">
-              <property name="text">
-               <string>none</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="blueColor_btn">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="redColor_btn">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="greenColor_btn">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="SkyBlueColor_btn">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="yellowColor_btn">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QPushButton" name="blueColor_btn">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="redColor_btn">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="greenColor_btn">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="SkyBlueColor_btn">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="yellowColor_btn">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>361</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <item>
+           <widget class="QCheckBox" name="shapeReplace_cb">
+            <property name="text">
+             <string>Shape Replace</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="circleCtl_btn">
+            <property name="text">
+             <string>Circle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="cubeCtl_btn">
+            <property name="text">
+             <string>Cube</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="sphereCtl_btn">
+            <property name="text">
+             <string>Sphere</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>50</y>
+           <width>361</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_14">
+          <item>
+           <widget class="QPushButton" name="diamondCtl_btn">
+            <property name="text">
+             <string>Diamond</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="coneCtl_btn">
+            <property name="text">
+             <string>Cone</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="arrrowBallCtl_btn">
+            <property name="text">
+             <string>Arrow Ball</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="arrow1Ctl_btn">
+            <property name="text">
+             <string>Arrow 1</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="arrow4Ctl_btn">
+            <property name="text">
+             <string>Arrow 4</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -857,7 +971,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>421</width>
+     <width>420</width>
      <height>21</height>
     </rect>
    </property>
@@ -868,7 +982,14 @@
     <addaction name="actionFile"/>
     <addaction name="actionExit"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
    <addaction name="menuMenu"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="actionFile">
    <property name="text">
@@ -880,7 +1001,29 @@
     <string>Exit</string>
    </property>
   </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>rtMainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>209</x>
+     <y>454</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

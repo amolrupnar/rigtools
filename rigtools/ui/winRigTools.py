@@ -58,6 +58,28 @@ class RigToolsUIConn(QtWidgets.QMainWindow, rigTools_ui.Ui_rtMainWindow):
         self.FK_in_IKSpine_btn.clicked.connect(winFkInIkSpine.main)
         self.FingerSDK_btn.clicked.connect(winFingerAttributes.main)
         self.WireTool_btn.clicked.connect(winWireTool.main)
+        # color btn connections.
+        self.noneColor_btn.setStyleSheet("background-color:rgb(0,0,102)")
+        self.noneColor_btn.clicked.connect(lambda: ar_gen.ar_overrideColor(0, offOver=True))
+        self.blueColor_btn.setStyleSheet("background-color:rgb(0,0,255)")
+        self.blueColor_btn.clicked.connect(lambda: ar_gen.ar_overrideColor(6))
+        self.redColor_btn.setStyleSheet("background-color:rgb(255,0,0)")
+        self.redColor_btn.clicked.connect(lambda: ar_gen.ar_overrideColor(13))
+        self.greenColor_btn.setStyleSheet("background-color:rgb(0,255,0)")
+        self.greenColor_btn.clicked.connect(lambda: ar_gen.ar_overrideColor(14))
+        self.SkyBlueColor_btn.setStyleSheet("background-color:rgb(0,255,255)")
+        self.SkyBlueColor_btn.clicked.connect(lambda: ar_gen.ar_overrideColor(18))
+        self.yellowColor_btn.setStyleSheet("background-color:rgb(255,255,0)")
+        self.yellowColor_btn.clicked.connect(lambda: ar_gen.ar_overrideColor(17))
+        # controller add connection.
+        self.circleCtl_btn.clicked.connect(lambda: extConn.controllerConn('circle', self))
+        self.cubeCtl_btn.clicked.connect(lambda: extConn.controllerConn('cube', self))
+        self.sphereCtl_btn.clicked.connect(lambda: extConn.controllerConn('sphere', self))
+        self.diamondCtl_btn.clicked.connect(lambda: extConn.controllerConn('diamond', self))
+        self.coneCtl_btn.clicked.connect(lambda: extConn.controllerConn('cone', self))
+        self.arrrowBallCtl_btn.clicked.connect(lambda: extConn.controllerConn('arrowBall', self))
+        self.arrow1Ctl_btn.clicked.connect(lambda: extConn.controllerConn('arrow1', self))
+        self.arrow4Ctl_btn.clicked.connect(lambda: extConn.controllerConn('arrow4', self))
 
 
 def main():

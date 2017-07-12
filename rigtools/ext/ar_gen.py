@@ -184,3 +184,25 @@ def ar_matchPositionOrientation(sel=None):
     else:
         raise RuntimeError('Please select two objects only.')
     return True
+
+
+def ar_overrideColor(clrIndex, sel=None, offOver=None):
+    """
+    @ override display color of sel.
+    Args:
+        clrIndex (int): maya drawing override color index.
+        sel (str): objects.
+        offOver (bool): off drawing override.
+
+    Returns:
+            bool.
+    """
+    if not sel:
+        sel = pm.ls(sl=True)
+    for each in sel:
+        if offOver:
+            pm.setAttr(each + '.overrideEnabled', 0)
+        else:
+            pm.setAttr(each + '.overrideEnabled', 1)
+        pm.setAttr(each + '.overrideColor', clrIndex)
+    return True
