@@ -129,30 +129,34 @@ def matchPositionOrientation():
 def controllerConn(ctlType, passUI):
     with ar_qui.ar_undoChunkOpen('controller maker'):
         myObj = pm.ls(sl=True)
-        pm.select(cl=True)
         ctl = ar_controllers.Ar_CtlShapes('controller')
         ctlTyp = {'cube': ctl.ar_cubeCtl, 'sphere': ctl.ar_sphereCtl, 'diamond': ctl.ar_diamondCtl,
                   'cone': ctl.ar_coneCtl,
                   'arrowBall': ctl.ar_arrowBallCtl, 'arrow1': ctl.ar_arrow1Ctl, 'arrow4': ctl.ar_arrow4Ctl,
                   'circle': ctl.ar_circleCtl}
-        newCtl = ctlTyp[ctlType]()
         if myObj:
-            ar_gen.ar_matchPositionOrientation(sel=[newCtl, myObj[0]])
-        if passUI.shapeReplace_cb.isChecked():
-            if not myObj:
-                ar_qui.ar_displayMessage('error', 'please select object to replace the shape.')
-                return False
-            oldShape = myObj[0].getShape()
-            if oldShape:
-                oldShapeName = oldShape.name()
-                pm.delete(oldShape)
-            else:
-                oldShapeName = myObj[0] + 'Shape'
-            newShape = newCtl.getShape()
-            pm.select(myObj[0], r=True)
-            mel.eval("parent -r -s " + newShape)
-            newShape.rename(oldShapeName)
-            pm.delete(newCtl)
-            pm.select(myObj[0])
+            for each in myObj:
+                pm.select(cl=True)
+                newCtl = ctlTyp[ctlType]()
+                ar_gen.ar_matchPositionOrientation(sel=[newCtl, each])
+                if passUI.shapeReplace_cb.isChecked():
+                    if not each:
+                        ar_qui.ar_displayMessage('error', 'please select object to replace the shape.')
+                        return False
+                    oldShape = each.getShape()
+                    if oldShape:
+                        oldShapeName = oldShape.name()
+                        pm.delete(oldShape)
+                    else:
+                        oldShapeName = each + 'Shape'
+                    newShape = newCtl.getShape()
+                    pm.select(each, r=True)
+                    mel.eval("parent -r -s " + newShape)
+                    newShape.rename(oldShapeName)
+                    pm.delete(newCtl)
+                    pm.select(each)
             return True
-        return False
+        else:
+            pm.select(cl=True)
+            ctlTyp[ctlType]()
+            return True
