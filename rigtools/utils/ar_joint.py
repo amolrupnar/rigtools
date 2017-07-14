@@ -22,7 +22,7 @@ def ar_jointsOnSelection(sel=None):
     allJoints = list()
     for i in range(len(sel)):
         cmds.select(cl=True)
-        pos = cmds.xform(sel[i], q=True, ws=True, t=True)
+        pos = cmds.xform(sel[i], q=True, ws=True, piv=True)
         rot = cmds.xform(sel[i], q=True, ws=True, ro=True)
         jnt = cmds.joint(p=[pos[0], pos[1], pos[2]])
         cmds.xform(jnt, ws=True, ro=[rot[0], rot[1], rot[2]])

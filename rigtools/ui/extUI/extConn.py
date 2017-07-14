@@ -127,6 +127,15 @@ def matchPositionOrientation():
 # ----------------------- controller ---------------------------
 # --------------------------------------------------------------
 def controllerConn(ctlType, passUI):
+    """
+    @ controller and replace shape of current objects connection.
+    Args:
+        ctlType (string): enter controller type like 'cube', 'sphere', etc.
+        passUI (QCheckBox): pass the QCheckBox for replace controller on or off query.
+
+    Returns:
+            bool.
+    """
     with ar_qui.ar_undoChunkOpen('controller maker'):
         myObj = pm.ls(sl=True)
         ctl = ar_controllers.Ar_CtlShapes('controller')
