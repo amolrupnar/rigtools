@@ -72,7 +72,17 @@ def ar_addFingerAttributeConnections(attribute, controllers, axis='rx'):
     for a in range(len(controllers)):
         controllers[a] = pm.PyNode(controllers[a])
         parentGrp = controllers[a].getParent()
-        pm.connectAttr(attribute, parentGrp + "." + axis)
+        # if connection is in translate and translate is in minus then add multiply divide,
+        # and reverse its connections.
+        if axis.startswith('t'):
+            offGroup = pm.PyNode('FKOffset' + controllers[a][2:])
+            if offGroup.tx.get() < 0:
+                mdnNode = pm.createNode('multiplyDivide', ss=True, n='mdn_' + controllers[a] + '_Reverse')
+                pm.connectAttr(attribute, mdnNode + '.input1X')
+                pm.connectAttr(mdnNode + '.outputX', parentGrp + "." + axis)
+                mdnNode.input2X.set(-1)
+        else:
+            pm.connectAttr(attribute, parentGrp + "." + axis)
     ar_qui.ar_displayMessage('success', '---- "%s" ----    connections done.....' % attribute)
     return True
 
@@ -110,3 +120,4 @@ def ar_addAllAttrsInFingerDriverController():
             ar_addFingerAttributeConnections(w + '.' + x + 'Lean', mainCtls[w][x], axis='rz')
             ar_addFingerAttributeConnections(w + '.' + x + 'Twist', mainCtls[w][x])
             ar_addFingerAttributeConnections(w + '.' + x + 'Scale', mainCtls[w][x], axis='tx')
+    return True
