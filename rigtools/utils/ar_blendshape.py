@@ -103,3 +103,16 @@ def ar_bakeShapeUsingWrap(baseGeo, newGeo):
         pm.delete(oldGeo + 'Base')
         pm.setAttr(bShpNode + '.' + each, 0)
         ar_qui.ar_displayMessage('success', '% shape created' % each)
+
+
+def ar_getBlendshapeWeightNames(blendshapeNode):
+    """
+    @ get blendshape weight names from blendshape node.
+    Args:
+        blendshapeNode (str): blendshape node.
+
+    Returns:
+            blendshape list (list).
+    """
+    blendshapeNode = pm.PyNode(blendshapeNode)
+    return pm.listAttr(blendshapeNode + '*.w', k=True, m=True)
