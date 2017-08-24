@@ -1,4 +1,4 @@
-from PySide2 import QtWidgets
+from PySide import QtGui
 
 from rigtools.ui import ar_qui
 from rigtools.ui import ar_uiFill
@@ -11,7 +11,7 @@ reload(ui_skinCopy)
 reload(ar_skin)
 
 
-class SkinCopyUIConn(QtWidgets.QMainWindow, ui_skinCopy.Ui_skinCopyWindow):
+class SkinCopyUIConn(QtGui.QMainWindow, ui_skinCopy.Ui_skinCopyWindow):
     def __init__(self, parent=None):
         super(SkinCopyUIConn, self).__init__(parent)
         self.setupUi(self)

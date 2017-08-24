@@ -1,4 +1,4 @@
-from PySide2 import QtWidgets
+from PySide import QtGui
 
 from rigtools.ui import ar_qui
 from rigtools.ext import ar_gen
@@ -27,7 +27,7 @@ reload(ar_asTools)
 reload(winShiftInpOut)
 
 
-class RigToolsUIConn(QtWidgets.QMainWindow, rigTools_ui.Ui_rtMainWindow):
+class RigToolsUIConn(QtGui.QMainWindow, rigTools_ui.Ui_rtMainWindow):
     def __init__(self, parent=None):
         super(RigToolsUIConn, self).__init__(parent)
         self.setupUi(self)

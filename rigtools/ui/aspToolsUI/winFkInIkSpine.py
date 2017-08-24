@@ -1,4 +1,4 @@
-from PySide2 import QtWidgets
+from PySide import QtGui
 
 from rigtools.ui import ar_qui
 from rigtools.ui.aspToolsUI import ui_aspfkInIkSpine
@@ -11,7 +11,7 @@ reload(ar_uiFill)
 reload(ar_asTools)
 
 
-class FkInIkSpineConn(QtWidgets.QMainWindow, ui_aspfkInIkSpine.Ui_FkInIkSpineWindow):
+class FkInIkSpineConn(QtGui.QMainWindow, ui_aspfkInIkSpine.Ui_FkInIkSpineWindow):
     def __init__(self, parent=None):
         super(FkInIkSpineConn, self).__init__(parent)
         self.setupUi(self)

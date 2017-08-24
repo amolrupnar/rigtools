@@ -1,4 +1,4 @@
-from PySide2 import QtWidgets
+from PySide import QtGui
 
 from rigtools.ui import ar_qui
 from rigtools.ui import ar_uiFill
@@ -14,7 +14,7 @@ reload(ar_gen)
 reload(ar_selection)
 
 
-class ShiftInpOutConn(QtWidgets.QMainWindow, ui_shiftInpOut.Ui_ShiftInpOutConnWindow):
+class ShiftInpOutConn(QtGui.QMainWindow, ui_shiftInpOut.Ui_ShiftInpOutConnWindow):
     def __init__(self, parent):
         super(ShiftInpOutConn, self).__init__(parent)
         self.setupUi(self)

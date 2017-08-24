@@ -1,7 +1,7 @@
 import pymel.core as pm
 import maya.OpenMayaUI as omui
-from PySide2 import QtWidgets, QtGui
-from shiboken2 import wrapInstance
+from PySide import QtGui
+from shiboken import wrapInstance
 
 
 class ar_undoChunkOpen(object):
@@ -22,7 +22,7 @@ def ar_mayaMainWindow():
     :rtype:
     """
     main_window_ptr = omui.MQtUtil.mainWindow()
-    return wrapInstance(long(main_window_ptr), QtWidgets.QWidget)
+    return wrapInstance(long(main_window_ptr), QtGui.QWidget)
 
 
 def ar_displayMessage(status, message):
@@ -42,9 +42,9 @@ def ar_displayMessage(status, message):
         'success': ((140, 230, 140), (0, 0, 0))}
     # commandLine1 will be unique in maya in all cases.
     commandLinePtr = omui.MQtUtil.findControl('commandLine1')
-    commandLine = wrapInstance(long(commandLinePtr), QtWidgets.QWidget)
+    commandLine = wrapInstance(long(commandLinePtr), QtGui.QWidget)
     # get result Line.
-    resultLine = commandLine.findChildren(QtWidgets.QLineEdit)[0]
+    resultLine = commandLine.findChildren(QtGui.QLineEdit)[0]
     palette = resultLine.palette()
     palette.setBrush(QtGui.QPalette.Base, QtGui.QColor(*statusColors[status][0]))
     palette.setColor(QtGui.QPalette.Text, QtGui.QColor(*statusColors[status][1]))
@@ -66,13 +66,13 @@ def ar_displayDialogue(status, message, detailMessage=None):
         return False
     # set icon according to status mode.
     if status == 'warning':
-        statusIcon = QtWidgets.QMessageBox.Warning
+        statusIcon = QtGui.QMessageBox.Warning
     elif status == 'error':
-        statusIcon = QtWidgets.QMessageBox.Critical
+        statusIcon = QtGui.QMessageBox.Critical
     else:
-        statusIcon = QtWidgets.QMessageBox.NoIcon
+        statusIcon = QtGui.QMessageBox.NoIcon
     # create QMessageBox.
-    msgBox = QtWidgets.QMessageBox(ar_mayaMainWindow())
+    msgBox = QtGui.QMessageBox(ar_mayaMainWindow())
     msgBox.setIcon(statusIcon)
     msgBox.setText(status)
     msgBox.setInformativeText(message)
@@ -82,5 +82,5 @@ def ar_displayDialogue(status, message, detailMessage=None):
         msgBox.setDetailedText("The details are as follows:\n" + detailMessage)
     else:
         msgBox.setDetailedText("The details are as follows:")
-    msgBox.setStandardButtons(QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
+    msgBox.setStandardButtons(QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)
     msgBox.exec_()
