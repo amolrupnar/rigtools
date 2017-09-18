@@ -58,6 +58,7 @@ class RigToolsUIConn(QtGui.QMainWindow, rigTools_ui.Ui_rtMainWindow):
         self.FK_in_IKSpine_btn.clicked.connect(winFkInIkSpine.main)
         self.FingerSDK_btn.clicked.connect(winFingerAttributes.main)
         self.WireTool_btn.clicked.connect(winWireTool.main)
+        self.addPlacement_btn.clicked.connect(self._addAsPlacement)
         # color btn connections.
         self.noneColor_btn.setStyleSheet("background-color:rgb(0,0,102)")
         self.noneColor_btn.clicked.connect(lambda: ar_gen.ar_overrideColor(0, offOver=True))
@@ -80,6 +81,11 @@ class RigToolsUIConn(QtGui.QMainWindow, rigTools_ui.Ui_rtMainWindow):
         self.arrrowBallCtl_btn.clicked.connect(lambda: extConn.controllerConn('arrowBall', self))
         self.arrow1Ctl_btn.clicked.connect(lambda: extConn.controllerConn('arrow1', self))
         self.arrow4Ctl_btn.clicked.connect(lambda: extConn.controllerConn('arrow4', self))
+
+    @staticmethod
+    def _addAsPlacement():
+        with ar_qui.ar_undoChunkOpen('add_placement controller.'):
+            ar_asTools.ar_addPlacementController()
 
 
 def main():

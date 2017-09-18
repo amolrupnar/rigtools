@@ -191,7 +191,7 @@ def ar_overrideColor(clrIndex, sel=None, offOver=None):
     @ override display color of sel.
     Args:
         clrIndex (int): maya drawing override color index.
-        sel (str): objects.
+        sel (list): objects.
         offOver (bool): off drawing override.
 
     Returns:

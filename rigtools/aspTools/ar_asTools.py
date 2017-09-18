@@ -4,10 +4,12 @@ from pymel import core as pm
 from rigtools.utils import ar_constraint
 from rigtools.utils import ar_mesure
 from rigtools.ui import ar_qui
+from rigtools.ext import ar_gen
 
 reload(ar_constraint)
 reload(ar_mesure)
 reload(ar_qui)
+reload(ar_gen)
 
 
 def ar_asIKCtlOriChange(joint, controller):
@@ -248,3 +250,32 @@ def ar_ikFootLiftToeReOrient(ctlOffGrp, orientSample, rotateAxis='.rz', reverseC
         pm.connectAttr(connections, jt + rotateAxis)
     # delete tempJoint.
     pm.delete(jtTemp)
+
+
+def ar_addPlacementController():
+    """
+    @ add placement Controller in asp rig.
+    Returns:
+            controller.
+    """
+    if not pm.objExists('Group'):
+        ar_qui.ar_displayMessage('error', 'Group Not Found..')
+        return False
+    if not pm.objExists('Main'):
+        ar_qui.ar_displayMessage('error', 'Main Controller not Found..')
+        return False
+    mainCtl = pm.PyNode('Main')
+    ctl = pm.modeling.circle(nr=[0, 1, 0], r=1, ch=False, n='Placement_C')[0]
+    allCvs = pm.ls(mainCtl + '.cv[*]', fl=True)
+    for i, each in enumerate(allCvs):
+        pm.setAttr(ctl + '.cv[' + str(i) + '].xValue', pm.xform(each, q=True, ws=True, t=True)[0])
+        pm.setAttr(ctl + '.cv[' + str(i) + '].yValue', pm.xform(each, q=True, ws=True, t=True)[1])
+        pm.setAttr(ctl + '.cv[' + str(i) + '].zValue', pm.xform(each, q=True, ws=True, t=True)[2])
+    ctl.s.set(1.2, 1.2, 1.2)
+    pm.makeIdentity(ctl, apply=True, t=1, r=1, s=1, n=0, pn=1)
+    # parenting.
+    pm.parent(ctl, 'Group')
+    pm.parent(mainCtl, ctl)
+    ar_gen.ar_overrideColor(15, sel=[ctl])
+    pm.select(cl=True)
+    return ctl

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'S:/bsw_programation/01_maya/Pipeline/rigtools/rigtools/ui/rigTools_ui.ui'
 #
-# Created: Thu Aug 24 16:52:09 2017
+# Created: Mon Sep 18 12:41:35 2017
 #      by: pyside-uic 0.2.14 running on PySide 1.2.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_rtMainWindow(object):
     def setupUi(self, rtMainWindow):
         rtMainWindow.setObjectName("rtMainWindow")
-        rtMainWindow.resize(420, 910)
+        rtMainWindow.resize(418, 910)
         self.centralwidget = QtGui.QWidget(rtMainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_2 = QtGui.QGridLayout(self.centralwidget)
@@ -21,7 +21,7 @@ class Ui_rtMainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 400, 869))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 398, 869))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.joint_groupBox = QtGui.QGroupBox(self.scrollAreaWidgetContents)
         self.joint_groupBox.setGeometry(QtCore.QRect(10, 240, 381, 271))
@@ -151,7 +151,7 @@ class Ui_rtMainWindow(object):
         self.multipleCons_groupBox.setMaximumSize(QtCore.QSize(16777215, 53))
         self.multipleCons_groupBox.setObjectName("multipleCons_groupBox")
         self.layoutWidget2 = QtGui.QWidget(self.multipleCons_groupBox)
-        self.layoutWidget2.setGeometry(QtCore.QRect(10, 20, 341, 25))
+        self.layoutWidget2.setGeometry(QtCore.QRect(10, 20, 352, 25))
         self.layoutWidget2.setObjectName("layoutWidget2")
         self.horizontalLayout_5 = QtGui.QHBoxLayout(self.layoutWidget2)
         self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
@@ -245,6 +245,9 @@ class Ui_rtMainWindow(object):
         self.PoleArm_btn = QtGui.QPushButton(self.layoutWidget5)
         self.PoleArm_btn.setObjectName("PoleArm_btn")
         self.horizontalLayout_9.addWidget(self.PoleArm_btn)
+        self.addPlacement_btn = QtGui.QPushButton(self.Follow_groupBox)
+        self.addPlacement_btn.setGeometry(QtCore.QRect(190, 21, 151, 23))
+        self.addPlacement_btn.setObjectName("addPlacement_btn")
         self.layoutWidget6 = QtGui.QWidget(self.advanceSkeleton_groupBox)
         self.layoutWidget6.setGeometry(QtCore.QRect(10, 30, 361, 25))
         self.layoutWidget6.setObjectName("layoutWidget6")
@@ -397,7 +400,7 @@ class Ui_rtMainWindow(object):
         self.gridLayout_2.addWidget(self.scrollArea, 0, 0, 1, 1)
         rtMainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(rtMainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 420, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 418, 21))
         self.menubar.setObjectName("menubar")
         self.menuMenu = QtGui.QMenu(self.menubar)
         self.menuMenu.setObjectName("menuMenu")
@@ -457,6 +460,7 @@ class Ui_rtMainWindow(object):
         self.Follow_groupBox.setTitle(QtGui.QApplication.translate("rtMainWindow", "Follow", None, QtGui.QApplication.UnicodeUTF8))
         self.IKArm_btn.setText(QtGui.QApplication.translate("rtMainWindow", "IKArm", None, QtGui.QApplication.UnicodeUTF8))
         self.PoleArm_btn.setText(QtGui.QApplication.translate("rtMainWindow", "PoleArm", None, QtGui.QApplication.UnicodeUTF8))
+        self.addPlacement_btn.setText(QtGui.QApplication.translate("rtMainWindow", "Add Placement CTL", None, QtGui.QApplication.UnicodeUTF8))
         self.IK_Orient_btn.setText(QtGui.QApplication.translate("rtMainWindow", "IK Orient", None, QtGui.QApplication.UnicodeUTF8))
         self.FingerSDK_btn.setText(QtGui.QApplication.translate("rtMainWindow", "FingerSDK", None, QtGui.QApplication.UnicodeUTF8))
         self.FK_in_IKSpine_btn.setText(QtGui.QApplication.translate("rtMainWindow", "FK in IKSpine", None, QtGui.QApplication.UnicodeUTF8))

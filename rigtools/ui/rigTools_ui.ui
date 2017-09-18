@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>420</width>
+    <width>418</width>
     <height>910</height>
    </rect>
   </property>
@@ -25,7 +25,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>400</width>
+         <width>398</width>
          <height>869</height>
         </rect>
        </property>
@@ -341,7 +341,7 @@
               <rect>
                <x>10</x>
                <y>20</y>
-               <width>341</width>
+               <width>352</width>
                <height>25</height>
               </rect>
              </property>
@@ -588,6 +588,19 @@
             </widget>
            </item>
           </layout>
+         </widget>
+         <widget class="QPushButton" name="addPlacement_btn">
+          <property name="geometry">
+           <rect>
+            <x>190</x>
+            <y>21</y>
+            <width>151</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Add Placement CTL</string>
+          </property>
          </widget>
         </widget>
         <widget class="QWidget" name="layoutWidget">
@@ -971,7 +984,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>420</width>
+     <width>418</width>
      <height>21</height>
     </rect>
    </property>
