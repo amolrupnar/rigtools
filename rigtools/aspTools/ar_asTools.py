@@ -279,3 +279,23 @@ def ar_addPlacementController():
     ar_gen.ar_overrideColor(15, sel=[ctl])
     pm.select(cl=True)
     return ctl
+
+
+def ar_visAttrs():
+    """
+    @ add visibility attribute in main controller.
+    Returns:
+            None.
+    """
+    if not pm.objExists('Main'):
+        raise RuntimeError('Main controller not found..')
+    # add attributes on main controller.
+    pm.addAttr('Main', ln='jointVis', at='bool', k=True)
+    pm.addAttr('Main', ln='meshDisp', at='enum', en='Normal:Template:Reference', k=True)
+    # hide joints.
+    if pm.objExists('Root_M'):
+        pm.connectAttr('Main.jointVis', 'Root_M.v', f=True)
+    # geometry connections.
+    if pm.objExists('geo'):
+        pm.setAttr('geo.overrideEnabled', 1)
+        pm.connectAttr('Main.meshDisp', 'geo.overrideDisplayType', f=True)

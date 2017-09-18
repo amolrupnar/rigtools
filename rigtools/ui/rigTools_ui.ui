@@ -594,12 +594,25 @@
            <rect>
             <x>190</x>
             <y>21</y>
-            <width>151</width>
+            <width>81</width>
             <height>23</height>
            </rect>
           </property>
           <property name="text">
-           <string>Add Placement CTL</string>
+           <string>Add Placement</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="addVis_btn">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>21</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Add Vis</string>
           </property>
          </widget>
         </widget>
@@ -781,7 +794,7 @@
           <rect>
            <x>10</x>
            <y>50</y>
-           <width>361</width>
+           <width>401</width>
            <height>25</height>
           </rect>
          </property>

@@ -59,6 +59,7 @@ class RigToolsUIConn(QtGui.QMainWindow, rigTools_ui.Ui_rtMainWindow):
         self.FingerSDK_btn.clicked.connect(winFingerAttributes.main)
         self.WireTool_btn.clicked.connect(winWireTool.main)
         self.addPlacement_btn.clicked.connect(self._addAsPlacement)
+        self.addVis_btn.clicked.connect(self._addAsVis)
         # color btn connections.
         self.noneColor_btn.setStyleSheet("background-color:rgb(0,0,102)")
         self.noneColor_btn.clicked.connect(lambda: ar_gen.ar_overrideColor(0, offOver=True))
@@ -86,6 +87,11 @@ class RigToolsUIConn(QtGui.QMainWindow, rigTools_ui.Ui_rtMainWindow):
     def _addAsPlacement():
         with ar_qui.ar_undoChunkOpen('add_placement controller.'):
             ar_asTools.ar_addPlacementController()
+
+    @staticmethod
+    def _addAsVis():
+        with ar_qui.ar_undoChunkOpen('add visibility controller on Main.'):
+            ar_asTools.ar_visAttrs()
 
 
 def main():

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'S:/bsw_programation/01_maya/Pipeline/rigtools/rigtools/ui/rigTools_ui.ui'
 #
-# Created: Mon Sep 18 12:41:35 2017
+# Created: Mon Sep 18 14:01:47 2017
 #      by: pyside-uic 0.2.14 running on PySide 1.2.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -246,8 +246,11 @@ class Ui_rtMainWindow(object):
         self.PoleArm_btn.setObjectName("PoleArm_btn")
         self.horizontalLayout_9.addWidget(self.PoleArm_btn)
         self.addPlacement_btn = QtGui.QPushButton(self.Follow_groupBox)
-        self.addPlacement_btn.setGeometry(QtCore.QRect(190, 21, 151, 23))
+        self.addPlacement_btn.setGeometry(QtCore.QRect(190, 21, 81, 23))
         self.addPlacement_btn.setObjectName("addPlacement_btn")
+        self.addVis_btn = QtGui.QPushButton(self.Follow_groupBox)
+        self.addVis_btn.setGeometry(QtCore.QRect(280, 21, 75, 23))
+        self.addVis_btn.setObjectName("addVis_btn")
         self.layoutWidget6 = QtGui.QWidget(self.advanceSkeleton_groupBox)
         self.layoutWidget6.setGeometry(QtCore.QRect(10, 30, 361, 25))
         self.layoutWidget6.setObjectName("layoutWidget6")
@@ -323,7 +326,7 @@ class Ui_rtMainWindow(object):
         self.sphereCtl_btn.setObjectName("sphereCtl_btn")
         self.horizontalLayout_10.addWidget(self.sphereCtl_btn)
         self.layoutWidget9 = QtGui.QWidget(self.groupBox)
-        self.layoutWidget9.setGeometry(QtCore.QRect(10, 50, 361, 25))
+        self.layoutWidget9.setGeometry(QtCore.QRect(10, 50, 401, 25))
         self.layoutWidget9.setObjectName("layoutWidget9")
         self.horizontalLayout_14 = QtGui.QHBoxLayout(self.layoutWidget9)
         self.horizontalLayout_14.setContentsMargins(0, 0, 0, 0)
@@ -460,7 +463,8 @@ class Ui_rtMainWindow(object):
         self.Follow_groupBox.setTitle(QtGui.QApplication.translate("rtMainWindow", "Follow", None, QtGui.QApplication.UnicodeUTF8))
         self.IKArm_btn.setText(QtGui.QApplication.translate("rtMainWindow", "IKArm", None, QtGui.QApplication.UnicodeUTF8))
         self.PoleArm_btn.setText(QtGui.QApplication.translate("rtMainWindow", "PoleArm", None, QtGui.QApplication.UnicodeUTF8))
-        self.addPlacement_btn.setText(QtGui.QApplication.translate("rtMainWindow", "Add Placement CTL", None, QtGui.QApplication.UnicodeUTF8))
+        self.addPlacement_btn.setText(QtGui.QApplication.translate("rtMainWindow", "Add Placement", None, QtGui.QApplication.UnicodeUTF8))
+        self.addVis_btn.setText(QtGui.QApplication.translate("rtMainWindow", "Add Vis", None, QtGui.QApplication.UnicodeUTF8))
         self.IK_Orient_btn.setText(QtGui.QApplication.translate("rtMainWindow", "IK Orient", None, QtGui.QApplication.UnicodeUTF8))
         self.FingerSDK_btn.setText(QtGui.QApplication.translate("rtMainWindow", "FingerSDK", None, QtGui.QApplication.UnicodeUTF8))
         self.FK_in_IKSpine_btn.setText(QtGui.QApplication.translate("rtMainWindow", "FK in IKSpine", None, QtGui.QApplication.UnicodeUTF8))
