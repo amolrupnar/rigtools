@@ -265,7 +265,9 @@ def ar_addPlacementController():
         ar_qui.ar_displayMessage('error', 'Main Controller not Found..')
         return False
     mainCtl = pm.PyNode('Main')
+    ctlGroup = pm.createNode('transform', n='PlacementExtra_C', ss=True)
     ctl = pm.modeling.circle(nr=[0, 1, 0], r=1, ch=False, n='Placement_C')[0]
+    pm.parent(ctl, ctlGroup)
     allCvs = pm.ls(mainCtl + '.cv[*]', fl=True)
     for i, each in enumerate(allCvs):
         pm.setAttr(ctl + '.cv[' + str(i) + '].xValue', pm.xform(each, q=True, ws=True, t=True)[0])
@@ -274,7 +276,7 @@ def ar_addPlacementController():
     ctl.s.set(1.2, 1.2, 1.2)
     pm.makeIdentity(ctl, apply=True, t=1, r=1, s=1, n=0, pn=1)
     # parenting.
-    pm.parent(ctl, 'Group')
+    pm.parent(ctlGroup, 'Group')
     pm.parent(mainCtl, ctl)
     ar_gen.ar_overrideColor(15, sel=[ctl])
     pm.select(cl=True)
