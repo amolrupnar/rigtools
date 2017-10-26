@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'S:/bsw_programation/01_maya/Pipeline/rigtools/rigtools/ui/aspToolsUI/ui_aspfkInIkSpine.ui'
 #
-# Created: Thu Aug 24 16:52:47 2017
+# Created: Tue Oct 24 14:33:36 2017
 #      by: pyside-uic 0.2.14 running on PySide 1.2.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -19,21 +19,22 @@ class Ui_FkInIkSpineWindow(object):
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.gridLayout_2 = QtGui.QGridLayout()
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.label_2 = QtGui.QLabel(self.centralwidget)
-        self.label_2.setObjectName("label_2")
-        self.gridLayout_2.addWidget(self.label_2, 0, 0, 1, 1)
+        self.fkInIkSp_hipBase_cBox = QtGui.QCheckBox(self.centralwidget)
+        self.fkInIkSp_hipBase_cBox.setObjectName("fkInIkSp_hipBase_cBox")
+        self.gridLayout_2.addWidget(self.fkInIkSp_hipBase_cBox, 0, 4, 1, 1)
         self.label_5 = QtGui.QLabel(self.centralwidget)
         self.label_5.setObjectName("label_5")
-        self.gridLayout_2.addWidget(self.label_5, 0, 3, 1, 1)
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem, 0, 2, 1, 1)
+        self.gridLayout_2.addWidget(self.label_5, 0, 2, 1, 1)
         self.fkInIkSp_ctlName_LE = QtGui.QLineEdit(self.centralwidget)
         self.fkInIkSp_ctlName_LE.setObjectName("fkInIkSp_ctlName_LE")
         self.gridLayout_2.addWidget(self.fkInIkSp_ctlName_LE, 0, 1, 1, 1)
         self.fkInIkSp_ctlNum_spbx = QtGui.QSpinBox(self.centralwidget)
         self.fkInIkSp_ctlNum_spbx.setMinimum(4)
         self.fkInIkSp_ctlNum_spbx.setObjectName("fkInIkSp_ctlNum_spbx")
-        self.gridLayout_2.addWidget(self.fkInIkSp_ctlNum_spbx, 0, 4, 1, 1)
+        self.gridLayout_2.addWidget(self.fkInIkSp_ctlNum_spbx, 0, 3, 1, 1)
+        self.label_2 = QtGui.QLabel(self.centralwidget)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout_2.addWidget(self.label_2, 0, 0, 1, 1)
         self.gridLayout_3.addLayout(self.gridLayout_2, 0, 0, 1, 1)
         self.gridLayout = QtGui.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
@@ -75,9 +76,10 @@ class Ui_FkInIkSpineWindow(object):
 
     def retranslateUi(self, FkInIkSpineWindow):
         FkInIkSpineWindow.setWindowTitle(QtGui.QApplication.translate("FkInIkSpineWindow", "fk in ik spine", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_2.setText(QtGui.QApplication.translate("FkInIkSpineWindow", "Controller Name:-", None, QtGui.QApplication.UnicodeUTF8))
+        self.fkInIkSp_hipBase_cBox.setText(QtGui.QApplication.translate("FkInIkSpineWindow", "Hip Base Controllers.", None, QtGui.QApplication.UnicodeUTF8))
         self.label_5.setText(QtGui.QApplication.translate("FkInIkSpineWindow", "Controller Numbers:-", None, QtGui.QApplication.UnicodeUTF8))
         self.fkInIkSp_ctlName_LE.setText(QtGui.QApplication.translate("FkInIkSpineWindow", "Fk_Spine", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_2.setText(QtGui.QApplication.translate("FkInIkSpineWindow", "Controller Name:-", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("FkInIkSpineWindow", "IK End Controller:-", None, QtGui.QApplication.UnicodeUTF8))
         self.fkInIkSp_HipCtls_btn.setText(QtGui.QApplication.translate("FkInIkSpineWindow", "<<", None, QtGui.QApplication.UnicodeUTF8))
         self.fkInIkSp_EndCtl_btn.setText(QtGui.QApplication.translate("FkInIkSpineWindow", "<<", None, QtGui.QApplication.UnicodeUTF8))

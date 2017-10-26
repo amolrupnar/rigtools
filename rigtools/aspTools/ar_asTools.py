@@ -63,7 +63,7 @@ def ar_changeDrawStyleOfExtraJoints():
         return unusedJoints
 
 
-def ar_fkCtlInIkSpine(startCtl, endCtl, hipCtlGrps, ctlName='Fk_Spine', ctlNum=4):
+def ar_fkCtlInIkSpine(startCtl, endCtl, hipCtlGrps=False, ctlName='Fk_Spine', ctlNum=4):
     """
     @ create fk controllers in advance skeleton ik spine setup.
     Args:
@@ -119,8 +119,13 @@ def ar_fkCtlInIkSpine(startCtl, endCtl, hipCtlGrps, ctlName='Fk_Spine', ctlNum=4
 
     # To put New controller in their corresponding Grp.
     pm.parentConstraint(ctrls[-1], 'IKOffset' + endCtl[2:], mo=True)
-    pm.parentConstraint(ctrls[0], hipCtlGrps[0], mo=True)
-    pm.parentConstraint(ctrls[0], hipCtlGrps[1], mo=True)
+    if hipCtlGrps:
+        pm.parentConstraint(ctrls[0], hipCtlGrps[0], mo=True)
+        pm.parentConstraint(ctrls[0], hipCtlGrps[1], mo=True)
+    else:
+        # hide first controller.
+        ctrls[0].v.set(0)
+        ctrls[0].v.lock()
     pm.parentConstraint(startCtl, ctrlGrps[0])
 
     for each in range(len(ctrlGrpFollows)):
@@ -301,3 +306,39 @@ def ar_visAttrs():
     if pm.objExists('geo'):
         pm.setAttr('geo.overrideEnabled', 1)
         pm.connectAttr('Main.meshDisp', 'geo.overrideDisplayType', f=True)
+
+
+def ar_addIKArmFollowSwitch():
+    """
+    add follow switch in ik arm controller.
+    :return: follow attribute.
+    """
+    cmds.deleteAttr("IKArm_L", "IKArm_R", at="follow")
+    cmds.delete("IKOffsetArm_L_parentConstraint1", "IKOffsetArm_R_parentConstraint1")
+    cmds.addAttr("IKArm_L", "IKArm_R", ln="follow", at='enum', en="Global:Chest:Shoulder:Hip:Head", k=True)
+    cmds.parentConstraint("IKOffsetArm_LStatic", "IKOffsetArm_L", mo=True)
+    cmds.parentConstraint("Chest_M", "IKOffsetArm_L", mo=True)
+    cmds.parentConstraint("Scapula_L", "IKOffsetArm_L", mo=True)
+    cmds.parentConstraint("Root_M", "IKOffsetArm_L", mo=True)
+    cmds.parentConstraint("Head_M", "IKOffsetArm_L", mo=True)
+    cmds.parentConstraint("IKOffsetArm_RStatic", "IKOffsetArm_R", mo=True)
+    cmds.parentConstraint("Chest_M", "IKOffsetArm_R", mo=True)
+    cmds.parentConstraint("Scapula_R", "IKOffsetArm_R", mo=True)
+    cmds.parentConstraint("Root_M", "IKOffsetArm_R", mo=True)
+    cmds.parentConstraint("Head_M", "IKOffsetArm_R", mo=True)
+
+
+def ar_addPoleArmFollowSwitch():
+    """
+    add follow switch in pole arm.
+    :return: follow switch.
+    """
+    cmds.deleteAttr("PoleArm_L", "PoleArm_R", at="follow")
+    cmds.delete("PoleOffsetArm_L_parentConstraint1", "PoleOffsetArm_R_parentConstraint1")
+    cmds.addAttr("PoleArm_L", "PoleArm_R", ln="follow", at='enum', en="Global:Chest:Arm", k=True)
+    cmds.parentConstraint("PoleOffsetArm_LStatic", "PoleOffsetArm_L", mo=True)
+    cmds.parentConstraint("Chest_M", "PoleOffsetArm_L", mo=True)
+    cmds.parentConstraint("IKArm_L", "PoleOffsetArm_L", mo=True)
+    cmds.parentConstraint("PoleOffsetArm_RStatic", "PoleOffsetArm_R", mo=True)
+    cmds.parentConstraint("Chest_M", "PoleOffsetArm_R", mo=True)
+    cmds.parentConstraint("IKArm_R", "PoleOffsetArm_R", mo=True)

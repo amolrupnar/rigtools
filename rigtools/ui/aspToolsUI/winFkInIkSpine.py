@@ -16,6 +16,21 @@ class FkInIkSpineConn(QtGui.QMainWindow, ui_aspfkInIkSpine.Ui_FkInIkSpineWindow)
         super(FkInIkSpineConn, self).__init__(parent)
         self.setupUi(self)
         self.connections()
+        # set check box state command and refresh using on off.
+        self.fkInIkSp_hipBase_cBox.stateChanged.connect(self._hipControllerCBox)
+        self.fkInIkSp_hipBase_cBox.setChecked(False)
+        self.fkInIkSp_hipBase_cBox.setChecked(True)
+        self.fkInIkSp_hipBase_cBox.setChecked(False)
+
+    def _hipControllerCBox(self):
+        if self.fkInIkSp_hipBase_cBox.isChecked():
+            self.label_4.setVisible(True)
+            self.fkInIkSp_HipCtls_LE.setVisible(True)
+            self.fkInIkSp_HipCtls_btn.setVisible(True)
+        else:
+            self.label_4.setVisible(False)
+            self.fkInIkSp_HipCtls_LE.setVisible(False)
+            self.fkInIkSp_HipCtls_btn.setVisible(False)
 
     def connections(self):
         self.fkInIkSp_StartCtl_btn.clicked.connect(lambda: ar_uiFill.ar_fillLineEdit(self.fkInIkSp_StartCtl_LE))
@@ -30,7 +45,10 @@ class FkInIkSpineConn(QtGui.QMainWindow, ui_aspfkInIkSpine.Ui_FkInIkSpineWindow)
             ctlName = self.fkInIkSp_ctlName_LE.text()
             ctlNumber = self.fkInIkSp_ctlNum_spbx.value()
             hipCtlGrps = ar_uiFill.ar_extractLineEditList(self.fkInIkSp_HipCtls_LE)
-            ar_asTools.ar_fkCtlInIkSpine(startCtl, endCtl, hipCtlGrps, ctlName, ctlNumber)
+            if self.fkInIkSp_hipBase_cBox.isChecked():
+                ar_asTools.ar_fkCtlInIkSpine(startCtl, endCtl, ctlName=ctlName, hipCtlGrps=hipCtlGrps, ctlNum=ctlNumber)
+            else:
+                ar_asTools.ar_fkCtlInIkSpine(startCtl, endCtl, ctlName=ctlName, ctlNum=ctlNumber)
 
 
 def main():

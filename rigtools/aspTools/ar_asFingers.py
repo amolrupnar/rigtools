@@ -81,6 +81,8 @@ def ar_addFingerAttributeConnections(attribute, controllers, axis='rx'):
                 pm.connectAttr(attribute, mdnNode + '.input1X')
                 pm.connectAttr(mdnNode + '.outputX', parentGrp + "." + axis)
                 mdnNode.input2X.set(-1)
+            else:
+                pm.connectAttr(attribute, parentGrp + "." + axis)
         else:
             pm.connectAttr(attribute, parentGrp + "." + axis)
     ar_qui.ar_displayMessage('success', '---- "%s" ----    connections done.....' % attribute)
