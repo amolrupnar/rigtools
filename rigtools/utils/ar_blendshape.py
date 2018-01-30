@@ -11,8 +11,8 @@ def ar_addBlendShape(source, target, value=0):
     """
     @ add blendshape in target.
     Args:
-        source (str):  transform of source geometry.
-        target (str): transform of target geometry.
+        source (str, PyNode):  transform of source geometry.
+        target (str, PyNode): transform of target geometry.
         value (float): addBlendShapeValue
 
     Returns:
@@ -21,18 +21,18 @@ def ar_addBlendShape(source, target, value=0):
     source = pm.PyNode(source)
     target = pm.PyNode(target)
     # get existing blendshape if exist.
-    blendshapes = []
+    blendShape = []
     allHist = target.history(pdo=True)
     for each in allHist:
         if each.nodeType() == 'blendShape':
-            blendshapes.append(each)
+            blendShape.append(each)
     # add blendshape.
-    if not blendshapes:
+    if not blendShape:
         face_blend = pm.blendShape(source, target, foc=True, n='BS_' + target)[0]
         weightCount = face_blend.getWeightCount()
         face_blend.setWeight(weightCount - 1, value)
-    elif len(blendshapes) == 1:
-        face_blend = blendshapes[0]
+    elif len(blendShape) == 1:
+        face_blend = blendShape[0]
         weightCount = face_blend.getWeightCount()
         pm.blendShape(face_blend, edit=True, t=(target, weightCount + 1, source, 1.0))
         face_blend.setWeight(weightCount + 1, value)
@@ -46,9 +46,9 @@ def ar_mirrorShapeUsingWrap(baseGeo, editedGeo, newShapeName='newShape', axis='s
     """
     @ mirror blendshape using wrap deformer.
     Args:
-        baseGeo (str): base geometry transform.
-        editedGeo (str): edited shape transform.
-        newShapeName (str): new geometry name.
+        baseGeo (str, PyNode): base geometry transform.
+        editedGeo (str, PyNode): edited shape transform.
+        newShapeName (str, PyNode): new geometry name.
         axis (str): axis example like 'sx'.
 
     Returns:
@@ -77,8 +77,8 @@ def ar_bakeShapeUsingWrap(baseGeo, newGeo):
     """
     @ bake blendshape using wrap deformer.
     Args:
-        baseGeo (str): base geometry transform.
-        newGeo (str): edited shape transform.
+        baseGeo (str, PyNode): base geometry transform.
+        newGeo (str, PyNode): edited shape transform.
 
     Returns:
             newShape.
@@ -105,14 +105,141 @@ def ar_bakeShapeUsingWrap(baseGeo, newGeo):
         ar_qui.ar_displayMessage('success', '% shape created' % each)
 
 
+def ar_bakeShapeWithIbUsingWrap(baseGeo, newGeo):
+    """
+    @ bake blendshape with in-between shapes using wrap deformer .
+    Args:
+        baseGeo (str, PyNode): base geometry transform.
+        newGeo (str, PyNode): edited shape transform.
+
+    Returns:
+            newShapes.
+    """
+    oldGeo = pm.PyNode(baseGeo)
+    newGeo = pm.PyNode(newGeo)
+    # find blendshape node.
+    bShpNode = ar_find.ar_findInputNodeType(oldGeo, 'blendShape')[0]
+    bShpNode = pm.PyNode(bShpNode)
+    # set all weight at zero.
+    for i in range(bShpNode.getWeightCount()):
+        bShpNode.setWeight(i, 0)
+    # blendshape in-between information.
+    blendValueInfo = ar_getBlendshapeIbInfo(bShpNode)
+    # create targets.
+    for each in pm.listAttr(bShpNode + '*.w', k=True, m=True):
+        # newShapes = list()
+        if len(blendValueInfo[each]) != 1:
+            for x in blendValueInfo[each]:
+                if x != 1:
+                    # duplicate new geometry.
+                    dupNewGeo = pm.duplicate(newGeo, rr=True, n=each + '__' + str(x).split('.')[1])[0]
+                    pm.select(dupNewGeo, oldGeo)
+                    pm.runtime.CreateWrap()
+                    # on blendShape.
+                    pm.setAttr(bShpNode + '.' + each, x)
+                    pm.runtime.DeleteHistory(dupNewGeo)
+                    pm.delete(oldGeo + 'Base')
+                    pm.setAttr(bShpNode + '.' + each, 0)
+                    # newShapes.append(dupNewGeo)
+                    ar_qui.ar_displayMessage('success', '% shape created' % each)
+                else:
+                    # duplicate new geometry.
+                    dupNewGeo = pm.duplicate(newGeo, rr=True, n=each)[0]
+                    pm.select(dupNewGeo, oldGeo)
+                    pm.runtime.CreateWrap()
+                    # on blendShape.
+                    pm.setAttr(bShpNode + '.' + each, 1)
+                    pm.runtime.DeleteHistory(dupNewGeo)
+                    pm.delete(oldGeo + 'Base')
+                    pm.setAttr(bShpNode + '.' + each, 0)
+                    # newShapes.append(dupNewGeo)
+                    ar_qui.ar_displayMessage('success', '% shape created' % each)
+        else:
+            # duplicate new geometry.
+            dupNewGeo = pm.duplicate(newGeo, rr=True, n=each)[0]
+            pm.select(dupNewGeo, oldGeo)
+            pm.runtime.CreateWrap()
+            # on blendShape.
+            pm.setAttr(bShpNode + '.' + each, 1)
+            pm.runtime.DeleteHistory(dupNewGeo)
+            pm.delete(oldGeo + 'Base')
+            pm.setAttr(bShpNode + '.' + each, 0)
+            # newShapes.append(dupNewGeo)
+            ar_qui.ar_displayMessage('success', '% shape created' % each)
+        # # add blendshape if bool is true.
+        # if addShape:
+        #     if len(newShapes) == 1:
+        #         ar_addBlendShape(newShapes[0], newGeo, value=0)
+        #     else:
+        #         target = pm.PyNode(newGeo)
+        #         # new shapes.
+        #         for eachShape in newShapes:
+        #             if len(eachShape.split('__')) != 3:
+        #                 ar_addBlendShape(eachShape, target)
+        #         # find shape.
+        #         blendShape = []
+        #         allHist = target.history(pdo=True)
+        #         for eachHist in allHist:
+        #             if eachHist.nodeType() == 'blendShape':
+        #                 blendShape.append(eachHist)
+        #         face_blend = blendShape[0]
+        #         weightCount = face_blend.getWeightCount()
+        #
+        #         for eachShape in newShapes:
+        #             if len(eachShape.split('__')) == 3:
+        #                 shapeVal = float('0.{}'.format(eachShape.split('__')[2]))
+        #                 pm.blendShape(face_blend, edit=True, ib=True, t=(target, weightCount - 1, eachShape, shapeVal))
+
+
 def ar_getBlendshapeWeightNames(blendshapeNode):
     """
     @ get blendshape weight names from blendshape node.
     Args:
-        blendshapeNode (str): blendshape node.
+        blendshapeNode (str, PyNode): blendshape node.
 
     Returns:
             blendshape list (list).
     """
     blendshapeNode = pm.PyNode(blendshapeNode)
     return pm.listAttr(blendshapeNode + '*.w', k=True, m=True)
+
+
+def ar_getBlendshapeIbInfo(bShpNode):
+    """
+    @ get blendshape and its in-between shape information from connections.
+    Args:
+        bShpNode (str, PyNode): blendshape node name.
+
+    Returns:
+            blendshape information (dict).
+    """
+    iTg = '%s.inputTarget[0]' % bShpNode
+    iTi = '.inputTargetItem'
+    dicCrGrp = {}
+    allCrName = pm.listAttr(bShpNode + '.weight', m=True)
+    allCrGrp = pm.getAttr(bShpNode + '.weight', mi=True)
+    for nm in allCrName:
+        dicCrGrp[nm] = allCrGrp[allCrName.index(nm)]
+    # get blendshape information with in-between.
+    dicCrGrpItem = {}
+    for crName in dicCrGrp.keys():
+        iTgGr = '.inputTargetGroup[%s]' % dicCrGrp[crName]
+        grpItem = pm.getAttr(iTg + iTgGr + iTi, mi=True)
+        if grpItem is None:
+            pm.getAttr(iTg + iTgGr + '.inputTargetItem[6000].inputGeomTarget')
+            pm.getAttr(iTg + iTgGr + '.inputTargetItem[6000].inputPointsTarget')
+            pm.getAttr(iTg + iTgGr + '.inputTargetItem[6000].inputComponentsTarget')
+            grpItem = [6000]
+            dicCrGrpItem[crName] = (dicCrGrp[crName], grpItem)
+        dicCrGrpItem[crName] = (dicCrGrp[crName], grpItem)
+    # rearrange dictionary.
+    blendshapeInfoDict = {}
+    for each in dicCrGrpItem.keys():
+        newValues = list()
+        for x in dicCrGrpItem[each][1]:
+            if x == 6000:
+                newValues.append(1)
+            else:
+                newValues.append(float('0.{}'.format(x - 5000)))
+        blendshapeInfoDict[each] = sorted(newValues)
+    return blendshapeInfoDict

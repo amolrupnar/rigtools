@@ -171,6 +171,7 @@
           <option value="Shiboken.wrapInstance" />
           <option value="str.setText" />
           <option value="str.text" />
+          <option value="pymel.core.general.PyNode.*" />
         </list>
       </option>
     </inspection_tool>

@@ -48,7 +48,7 @@ def ar_addFk(axis, sel=None):
                 cmds.parent(fkxGrp, controller[i - 1])
                 cmds.parentConstraint(fkxGrp, chain[i])
         ar_qui.ar_displayMessage('success', 'done add fk controllers.')
-        return controller
+    return controller
 
 
 def ar_addFkProxy(axis, sel=None):

@@ -5,7 +5,7 @@ def ar_findInputNodeType(obj, nodeType):
     """
     @ return node name of node type of object.
     Args:
-        obj (str): object which you return node name.
+        obj (str, PyNode): object which you return node name.
         nodeType (str): nodeType ('blendshape').
 
     Returns:
