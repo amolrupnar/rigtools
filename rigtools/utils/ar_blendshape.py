@@ -105,12 +105,13 @@ def ar_bakeShapeUsingWrap(baseGeo, newGeo):
         ar_qui.ar_displayMessage('success', '% shape created' % each)
 
 
-def ar_bakeShapeWithIbUsingWrap(baseGeo, newGeo):
+def ar_bakeShapeWithIbUsingWrap(baseGeo, newGeo, addShape=None):
     """
     @ bake blendshape with in-between shapes using wrap deformer .
     Args:
         baseGeo (str, PyNode): base geometry transform.
         newGeo (str, PyNode): edited shape transform.
+        addShape (bool): if shape want to add then pass True.
 
     Returns:
             newShapes.
@@ -126,13 +127,13 @@ def ar_bakeShapeWithIbUsingWrap(baseGeo, newGeo):
     # blendshape in-between information.
     blendValueInfo = ar_getBlendshapeIbInfo(bShpNode)
     # create targets.
+    newShapes = list()
     for each in pm.listAttr(bShpNode + '*.w', k=True, m=True):
-        # newShapes = list()
         if len(blendValueInfo[each]) != 1:
             for x in blendValueInfo[each]:
                 if x != 1:
                     # duplicate new geometry.
-                    dupNewGeo = pm.duplicate(newGeo, rr=True, n=each + '__' + str(x).split('.')[1])[0]
+                    dupNewGeo = pm.duplicate(newGeo, rr=True, n=each + '__ib__' + str(x).split('.')[1])[0]
                     pm.select(dupNewGeo, oldGeo)
                     pm.runtime.CreateWrap()
                     # on blendShape.
@@ -140,7 +141,7 @@ def ar_bakeShapeWithIbUsingWrap(baseGeo, newGeo):
                     pm.runtime.DeleteHistory(dupNewGeo)
                     pm.delete(oldGeo + 'Base')
                     pm.setAttr(bShpNode + '.' + each, 0)
-                    # newShapes.append(dupNewGeo)
+                    newShapes.append(dupNewGeo)
                     ar_qui.ar_displayMessage('success', '% shape created' % each)
                 else:
                     # duplicate new geometry.
@@ -152,7 +153,7 @@ def ar_bakeShapeWithIbUsingWrap(baseGeo, newGeo):
                     pm.runtime.DeleteHistory(dupNewGeo)
                     pm.delete(oldGeo + 'Base')
                     pm.setAttr(bShpNode + '.' + each, 0)
-                    # newShapes.append(dupNewGeo)
+                    newShapes.append(dupNewGeo)
                     ar_qui.ar_displayMessage('success', '% shape created' % each)
         else:
             # duplicate new geometry.
@@ -164,31 +165,27 @@ def ar_bakeShapeWithIbUsingWrap(baseGeo, newGeo):
             pm.runtime.DeleteHistory(dupNewGeo)
             pm.delete(oldGeo + 'Base')
             pm.setAttr(bShpNode + '.' + each, 0)
-            # newShapes.append(dupNewGeo)
+            newShapes.append(dupNewGeo)
             ar_qui.ar_displayMessage('success', '% shape created' % each)
-        # # add blendshape if bool is true.
-        # if addShape:
-        #     if len(newShapes) == 1:
-        #         ar_addBlendShape(newShapes[0], newGeo, value=0)
-        #     else:
-        #         target = pm.PyNode(newGeo)
-        #         # new shapes.
-        #         for eachShape in newShapes:
-        #             if len(eachShape.split('__')) != 3:
-        #                 ar_addBlendShape(eachShape, target)
-        #         # find shape.
-        #         blendShape = []
-        #         allHist = target.history(pdo=True)
-        #         for eachHist in allHist:
-        #             if eachHist.nodeType() == 'blendShape':
-        #                 blendShape.append(eachHist)
-        #         face_blend = blendShape[0]
-        #         weightCount = face_blend.getWeightCount()
-        #
-        #         for eachShape in newShapes:
-        #             if len(eachShape.split('__')) == 3:
-        #                 shapeVal = float('0.{}'.format(eachShape.split('__')[2]))
-        #                 pm.blendShape(face_blend, edit=True, ib=True, t=(target, weightCount - 1, eachShape, shapeVal))
+    # add blendshape if bool is true.
+    if addShape:
+        # create blendshapes.
+        for each in newShapes:
+            if each.find('__ib__') == -1:
+                ar_addBlendShape(each, newGeo)
+        # find in-between shapes.
+        allInbetweenShapes = []
+        for each in newShapes:
+            if each.find('__ib__') != -1:
+                allInbetweenShapes.append(each)
+        # apply in-between shapes.
+        for each in allInbetweenShapes:
+            splitValue = len(each.split('__ib__')[1]) + 6
+            shapeBaseName = each[:-splitValue]
+            shapeVal = float(str('.' + each.split('__ib__')[1]))
+            newBsNode = ar_find.ar_findInputNodeType(newGeo, 'blendShape')[0]
+            shapeIndex = pm.listAttr(newBsNode + '*.w', k=True, m=True).index(shapeBaseName) + 1
+            pm.blendShape(newBsNode, edit=True, ib=True, t=(newGeo, shapeIndex, each, shapeVal))
 
 
 def ar_getBlendshapeWeightNames(blendshapeNode):
